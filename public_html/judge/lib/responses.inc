@@ -1,0 +1,12 @@
+<?php
+define("ENONE",0);
+define("EFILETYPE",1);
+define("EFORBIDDEN",2);
+define("ECOMPILE",3);
+define("ERUNLENGTH",4);
+define("ERUNTIME",5);
+define("EINCORRECT",6);
+define("EFORMAT",7);
+define("EUNKNOWN",8);
+define("ECORRECT",9);
+?>
