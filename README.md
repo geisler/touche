@@ -11,8 +11,16 @@ is in a directory named src):
 
     ln -s ~/src/develop develop
     ln -s ~/src/public_html public_html/develop
-    ln -s ~/src/createcontest.php public_html/createcontest.php
-    ln -s ~/src/createcontest2.php public_html/createcontest2.php
+    cp ~/src/createcontest.php public_html/createcontest.php
+    cp ~/src/createcontest2.php public_html/createcontest2.php
     ln -s ~/src/dbcreate.sql public_html/dbcreate.sql
+
+We cannot use symbolic links for the `createcontest` scripts since
+they are directly executed by the web server and we use suexec, which
+doesn't work over links and so it needs to be copied.  You just need
+to make sure that any time those scripts are updated that they get
+copied into the web server spot properly and that can be easy to
+forget when using version control since it might not explicitly remind
+to do so.
 
 More documents should be created and pointed to with this README!!!
