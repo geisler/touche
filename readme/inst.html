@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>inst</TITLE>
+<META NAME="description" CONTENT="inst">
+<META NAME="keywords" CONTENT="inst">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="inst.css">
+
+<LINK REL="next" HREF="node1.html">
+</HEAD>
+
+<BODY >
+
+<P>
+This document is to explain how our setup works.  The environment is
+web based so you use a standard web browser to interface with our
+judging system.  When you submit a problem, we do a bunch of things to
+try to make sure your code is safe to run.  The first thing we do is
+look for ``bad words'' that may indicate you are trying to do
+something you shouldn't be doing.  These things include reading files,
+running assembly code, connecting to the network, etc.  The following
+is a list of all of these words:
+
+<UL>
+<LI>fork
+</LI>
+<LI>exec
+</LI>
+<LI>open
+</LI>
+<LI>system
+</LI>
+<LI>fstream
+</LI>
+<LI>socket
+</LI>
+<LI>accept
+</LI>
+<LI>listen
+</LI>
+<LI>connect
+</LI>
+<LI>mmap
+</LI>
+<LI>__asm__
+</LI>
+</UL>
+Currently our program is very dumb about how it looks through your
+code.  If it finds these words anywhere, it will flag the problem as
+incorrect and refuse to even compile it.  This includes comments, so
+the following code would be considered illegal even though it is
+harmless:
+<BR>
+<IMG
+ WIDTH="350" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="http://jacob.css.taylor.edu/~judge/readme/img1.png"
+ ALT="\begin{lstlisting}
+// should I eat with a fork or spoon?
+\end{lstlisting}">
+<BR>
+<BR>
+<IMG
+ WIDTH="80" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="http://jacob.css.taylor.edu/~judge/readme/img2.png"
+ ALT="\begin{lstlisting}
+execute()
+\end{lstlisting}">
+<BR>
+
+<P>
+After we do this check, we remove all the files you have included and
+replace them with a predefined set of library files.  If you try to
+access files outside those provided, you will come across problems.
+Here is the list of files by language:
+
+<UL>
+<LI><EM>C</EM>: assert.h, ctype.h, float.h, limits.h, malloc.h,
+	math.h, stdlib.h, stdio.h, string.h
+</LI>
+<LI><EM>C++</EM>: algorithm, bitset, cassert, cctype, cfloat,
+	climits, cmalloc, cmath, cstdlib, cstdio, cstring, iomanip,
+	iterator, list, map, new, queue, set, stack, stdexcept, string
+</LI>
+<LI><EM>Java</EM>: java.lang.*, java.io.*, java.util.*, java.math.*
+</LI>
+</UL>
+
+<P>
+When your program runs, we send all input to stdin and receive all
+output from stdout.  We ignore any output sent to stderr, so we
+suggest you send any debugging output there so you don't have to worry
+about removing that before submitting.
+
+<P>
+Because of the bytecode nature of Java, people need to be aware of
+several additional mechanisms if they are going to code in that
+language:
+
+<UL>
+<LI><b>Do not make public classes!</b>  If you do so, the compiler will
+	expect the file to be named the same as your class name and
+	our program can't possibly be expected to know the name of the
+	class you are trying to run.
+</LI>
+<LI><b>The class in the file that contains the main() method must
+	also be named Main</b>.  This just makes it easier for our system
+	to locate the main method and the class it is associated with.
+</LI>
+<LI><b>Put all your classes in a single file</b>.  This should allow
+	the upload interface to work well no matter what kind of
+	solution you come up with.
+</LI>
+</UL>
+
+<P>
+The possible responses from the judge are:
+
+<OL>
+<LI>Accepted as correct
+</LI>
+<LI>Forbidden word in source (trying to open()) files, etc.)
+</LI>
+<LI>Undefined file type (can't determine which compiler to use
+	from file e.g., .txt)
+</LI>
+<LI>Compile error
+</LI>
+<LI>Exceeds time limit
+</LI>
+<LI>Incorrect output (problem gives wrong answer)
+</LI>
+<LI>Format error (problem gives right answer, but does not meet
+	output specifications)
+</LI>
+<LI>Runtime error (program crashes e.g., seg fault or uncaugt
+	exception)
+</LI>
+<LI>Unknown error (catch all for contingencies-shouldn't see
+	this)
+</LI>
+</OL>
+
+<P>
+Make sure your C/C++ programs return 0 at the end.  For some reason,
+gcc returns a failure code to the operating system if you do not
+include that statement at the end of your successful runs.
+
+<P>
+we offer contestants the opportunity to compile their programs using
+the same compiler as the server since its quite possible that some
+contestants are using different compilers that may accept
+(non-standard) syntax that our compiler doesn't accept.  We will
+return any errors that our compiler generates so that contestants can
+see exactly the problems we see with their code.
+
+<P>
+Please do not use the test compile as your main compilation tool,
+since we do not return an executable and the compilation process
+competes with other processes on the web server.  We don't want the web
+interface to slow down because too many people are hitting the
+compilation.  We anticipate this being used as a last minute check
+before the program is submitted for judging.  This should eliminate any
+compilation errors from contestants because they can always check
+before submission.
+
+<P>
+Here are the URLs for each setup:
+
+<P>
+
+<UL>
+<LI>official contest:
+	<TT><A NAME="tex2html1"
+  HREF="http://jacob.css.taylor.edu/~contest/TU2008Contest">http://jacob.css.taylor.edu/~contest/TU2008Contest</A></TT>
+</LI>
+<LI>practice contest:
+	<TT><A NAME="tex2html2"
+  HREF="http://jacob.css.taylor.edu/~contest/TU2008Warmup">http://jacob.css.taylor.edu/~contest/TU2008Warmup</A></TT>
+</LI>
+</UL>
+
+<P>
+We are using gcc 3.4.4 and Sun's 1.5.0_02 Java JDK.  We can give you more
+detailed version information if you need it.  Hopefully, this
+shouldn't be any type of problem since you shouldn't need any esoteric
+features of any language.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"></A>
+
+<!--End of Table of Child-Links-->
+<HR>
+<ADDRESS>
+Jonathan Geisler
+2008-04-19
+</ADDRESS>
+</BODY>
+</HTML>
