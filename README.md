@@ -13,8 +13,8 @@ is in a directory named src):
     ln -s ~/src/public_html public_html/develop
     ln ~/src/createcontest.php public_html/createcontest.php
     ln ~/src/createcontest2.php public_html/createcontest2.php
+    ln ~/src/index.html public_html/index.html
     ln -s ~/src/dbcreate.sql public_html/dbcreate.sql
-    ln -s ~/src/index.html public_html/index.html
 
 We cannot use symbolic links for the `createcontest` scripts since
 they are directly executed by the web server and we use suexec, which
