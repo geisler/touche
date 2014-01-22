@@ -56,32 +56,30 @@ if($_GET){
     $row = mysql_fetch_assoc($sql_result);
 
     $auto_response = $row['RESPONSE'];
-    
-    echo "<table align=center bgcolor=#ffffff cellpadding=0
-                        cellspacing=0 border=0><tr><td>\n";
-    echo "<table width=100% cellpadding=5
-                        cellspacing=1 border=0>\n";
-    echo "<tr><td bgcolor=$hd_bg_color1 align=center colspan=2>\n";
-    echo "<font color=$hd_txt_color1><b>\n";
-    echo "Judging Submission\n";
-    echo "</b></td></tr></table>\n";
-    echo "<table width=100% border=0>\n";
-    echo "<tr><td bgcolor=$data_bg_color1>Submission ID:</td>\n";
-    echo "<td bgcolor=$data_bg_color1>" . $_GET['judged_id'] . "</td></tr>\n";
-    echo "<tr><td bgcolor=$data_bg_color1>Team:</td>\n";
-    echo "<td bgcolor=$data_bg_color1>" . $_GET['team_id'] . "</td></tr>\n";
-    echo "<tr><td bgcolor=$data_bg_color1>Problem:</td>\n";
-    echo "<td bgcolor=$data_bg_color1>$problem_name</td></tr>\n";
-    echo "<tr><td bgcolor=$data_bg_color1>Attempt:</td>\n";
-    echo "<td bgcolor=$data_bg_color1>" . $_GET['attempt'] . "</td></tr>\n";
-    echo "<tr><td bgcolor=$data_bg_color1>Source:</td>\n";
-    echo "<td  bgcolor=$data_bg_color1><a href='judge_output.php?problem=$problem_id&sub_source=$source_file&format=2' target='blank'> $source_file </a></td></tr>";
-    echo "<table width = 100% border=0 cellpadding=5><tr>";
-    echo "<td bgcolor=$hd_bg_color2><center><b>";
+
+    echo "<div class='container'>";
+    echo "<div class='innerglow'>";
+    echo "<div class='table-responsive'>";
+    echo "<table class='table' align=center><tr><td>\n";
+    echo "<tr><td align=center colspan=2>\n";
+    echo "<h3>Judging Submission</h3>\n";
+    echo "</td></tr> \n";
+    echo "<tr><td Submission ID:</td>\n";
+    echo "<td>" . $_GET['judged_id'] . "</td></tr>\n";
+    echo "<tr><td >Team:</td>\n";
+    echo "<td>" . $_GET['team_id'] . "</td></tr>\n";
+    echo "<tr><td >Problem:</td>\n";
+    echo "<td >$problem_name</td></tr>\n";
+    echo "<tr><td >Attempt:</td>\n";
+    echo "<td>" . $_GET['attempt'] . "</td></tr>\n";
+    echo "<tr><td >Source:</td>\n";
+    echo "<td><a href='judge_output.php?problem=$problem_id&sub_source=$source_file&format=2' target='blank'> $source_file </a></td></tr>";
+    echo "<tr>";
+    echo "<td><center><b>";
     echo "<font color=$hd_txt_color2>Problem Notes:</font>";
-    echo "</b></center></td></tr></table>\n";
-    echo "<table><tr><td><textarea rows=4 cols=62 readonly>";
-    echo $row['PROBLEM_NOTE'] . "</textarea></table>";
+    echo "</b></center></td></tr> \n";
+    echo "<tr><td><textarea rows=4 cols=62 readonly>";
+    echo $row['PROBLEM_NOTE'] . "</textarea>";
     
     $sql = "SELECT * ";
     $sql .= "FROM AUTO_RESPONSES AR INNER JOIN RESPONSES R ON R.RESPONSE_ID = AR.AUTO_RESPONSE ";
@@ -99,64 +97,64 @@ if($_GET){
 	switch($row['AUTO_RESPONSE']){
 		case EFORBIDDEN:
 			echo "<table border=0 width=100% cellpadding=5>\n";
-                	echo "<tr cellpadding=5 bgcolor=$hd_bg_color2>\n";
+                	echo "<tr cellpadding=5  >\n";
                 	echo "<td align=center colspan=2>\n";
 	                echo "<font color=$hd_txt_color2>\n";
 	                echo "<b>Forbidden Word in Source</b>";
 	                echo "</td></tr>\n";
 			echo "<tr><td><textarea rows=15 cols=62 readonly>$row[IN_FILE]</textarea>";
-			echo "</td></tr></table>\n";
+			echo "</td></tr> \n";
 			break;
 		 
 		case ECOMPILE:
                         echo "<table border=0 width=100% cellpadding=5>\n";
-                        echo "<tr cellpadding=5 bgcolor=$hd_bg_color2>\n";
+                        echo "<tr cellpadding=5  >\n";
                         echo "<td align=center colspan=2>\n";
                         echo "<font color=$hd_txt_color2>\n";
                         echo "<b>Compile Error</b>";
                         echo "</td></tr>\n";
                         echo "<tr><td><textarea rows=15 cols=62 readonly>" . read_entire_file($problem_handle['judged_dir'] . $row['IN_FILE']);
-                        echo "</textarea></td></tr></table>\n";
+                        echo "</textarea></td></tr> \n";
                         break;
 		
 		case EFILETYPE:
 			echo "<table border=0 width=100% cellpadding=5>\n";
-                	echo "<tr cellpadding=5 bgcolor=$hd_bg_color2>\n";
+                	echo "<tr cellpadding=5  >\n";
                 	echo "<td align=center colspan=2>\n";
 	                echo "<font color=$hd_txt_color2>\n";
 	                echo "<b>Undefined File Type</b>";
-	                echo "</td></tr></table>\n";
+	                echo "</td></tr> \n";
 			echo "<table border=0 width=100%>\n";
-                        echo "<tr><td bgcolor=$data_bg_color1>";
+                        echo "<tr><td >";
 			echo "<font color=$data_txt_color4>";
-                        echo "File Name: $row[IN_FILE]</font></td></tr></table>\n";
+                        echo "File Name: $row[IN_FILE]</font></td></tr> \n";
 			break;
 		case ERUNTIME:
 			$know_output = preg_replace("/\.in/", ".out", $row['IN_FILE']);
 			echo "<table border=0 width=100% cellpadding=5>\n";
-                        echo "<tr cellpadding=5 bgcolor=$hd_bg_color2>\n";
+                        echo "<tr cellpadding=5  >\n";
                         echo "<td align=center colspan=2>\n";
                         echo "<font color=$hd_txt_color2>\n";
                         echo "<b>Data Set: $know_output</b>";
-                        echo "</td></tr></table>\n";
+                        echo "</td></tr> \n";
                         echo "<table border=0 width=100%>\n";
-                        echo "<tr><td bgcolor=$data_bg_color1>";
+                        echo "<tr><td >";
 			echo "<font color=$data_txt_color4>";
-                        echo "Runtime Error Number: $row[ERROR_NO]</font></td></tr></table>\n";
+                        echo "Runtime Error Number: $row[ERROR_NO]</font></td></tr> \n";
 			break;
 	
 		case ERUNLENGTH:
 			$know_output = preg_replace("/\.in/", ".out", $row['IN_FILE']);
                         echo "<table border=0 width=100% cellpadding=5>\n";
-                        echo "<tr cellpadding=5 bgcolor=$hd_bg_color2>\n";
+                        echo "<tr cellpadding=5  >\n";
                         echo "<td align=center colspan=2>\n";
                         echo "<font color=$hd_txt_color2>\n";
                         echo "<b>Data Set: $know_output</b>";
-                        echo "</td></tr></table>\n";
+                        echo "</td></tr> \n";
                         echo "<table border=0 width=100%>\n";
-                        echo "<tr><td bgcolor=$data_bg_color1>";
+                        echo "<tr><td >";
 			echo "<font color=$data_txt_color4>";
-                        echo "The time limit was exceeded</font></td></tr></table>\n";
+                        echo "The time limit was exceeded</font></td></tr> \n";
 			break;
 	
 		default:
@@ -167,16 +165,16 @@ if($_GET){
 			$diff_no_ws_out_file = $diff_out_file . ".no_ws";
 	
 			echo "<table border=0 width=100% cellpadding=5>\n";
-		        echo "<tr cellpadding=5 bgcolor=$hd_bg_color2>\n";
+		        echo "<tr cellpadding=5  >\n";
 		        echo "<td align=center colspan=2>\n";
 		        echo "<font color=$hd_txt_color2>\n";
 		        echo "<b>Comparing Data Set: $know_output</b>";
-		        echo "</td></tr></table>\n";
+		        echo "</td></tr> \n";
 	
 			echo "<table border=0 width=100%>\n";
 	
 			if(filesize($diff_out_file) != 0){
-				echo "<tr><td bgcolor=$data_bg_color1>";
+				echo "<tr><td >";
 		                echo "<font color=$data_txt_color4>";
 		                if(file_exists($diff_no_ws_out_file)){ 
 					echo "Standard diff failed</font></td></tr>\n";
@@ -185,22 +183,22 @@ if($_GET){
 					echo "</textarea></td></tr>";
 			
 					if(filesize($diff_no_ws_out_file)!= 0){
-		 			 	 echo "<tr><td bgcolor=$data_bg_color1>";
+		 			 	 echo "<tr><td >";
 			                         echo "<font color=$data_txt_color4>";
 			                         echo "White space diff failed";
 		        	                 echo "</font></td></tr>";
-						 echo "<tr><td bgcolor=$data_bg_color1>";
+						 echo "<tr><td >";
                                                  echo "<font color=$data_txt_color4>";
                                                  echo "<b>Incorrect Output</b>";
                                                  echo "</font></td></tr>";
 
 					}
 					else{
-						echo "<tr><td bgcolor=$data_bg_color1>";
+						echo "<tr><td >";
 			                        echo "<font color=$data_txt_color3>";
 		        	                echo "White space diff succedded";
 		                	        echo "</font></td></tr>";
-						echo "<tr><td bgcolor=$data_bg_color1>";
+						echo "<tr><td >";
 						echo "<font color=$data_txt_color4>";
 		        	                echo "<b>Format Error</b>";
 		                	        echo "</font></td></tr>";
@@ -209,21 +207,21 @@ if($_GET){
 				}
 			}
 			else{
-				echo "<tr><td bgcolor=$data_bg_color1>\n";
+				echo "<tr><td >\n";
 		                echo "<b><font color=$data_txt_color3>";
 		                echo "Correct Solution</font></b></td></tr>\n";
 			}
-			echo "<tr><td bgcolor=$data_bg_color1>";
+			echo "<tr><td >";
 		        echo "<a href='judge_output.php?problem=$problem_name&judge_source=$know_output&sub_source=$source_file" . "_" . "$know_output&format=1'target='blank'>Output Files</a>";
-		        echo "</td></tr></table>";
+		        echo "</td></tr> ";
 	}	
     }
     echo "<table width=100% cellpadding=5 border=0>\n";
-    echo "<tr><td align=center bgcolor=$hd_bg_color2>\n";
+    echo "<tr><td align=center  >\n";
     echo "<font color=$hd_txt_color2><b>";
     echo "Overall Result of the Attempt</b></font></td></tr>\n";
-    echo "</table><table border=0 width=100%>\n";
-    echo "<tr><td bgcolor=$data_bg_color1>Suggested Result: ";
+    echo " <table border=0 width=100%>\n";
+    echo "<tr><td >Suggested Result: ";
 
     if($auto_response_id == 1)
 	echo "<font color=$data_txt_color3><b>";
@@ -234,7 +232,7 @@ if($_GET){
     echo "</b></font></td></tr>";
     echo "</b></font></td></tr>";
     echo "<form method='POST' name='testing' action='$_GET[page]'>\n";
-    echo "<tr><td bgcolor=$data_bg_color1>Final Result: ";
+    echo "<tr><td >Final Result: ";
     echo "<select name='result'>";
 
     $sql = "SELECT * ";
@@ -253,7 +251,7 @@ if($_GET){
         echo ">" . $row['RESPONSE'] . "</option>";
     }
     echo "</select>";
-    echo "</td></tr></table>";
+    echo "</td></tr> ";
     //this now goes after each data set
     /*if($auto_response_id != 1){
 	echo "<table><tr><td><textarea rows=15 cols=62 readonly>";
@@ -261,20 +259,23 @@ if($_GET){
         if($auto_response_id == 8) {
         	echo "Runtime errorno: put number in db";
         }
-        echo "</textarea></td></tr></table>\n";
+        echo "</textarea></td></tr> \n";
     }*/
    
     echo "<table border=0 width=100%>\n";
     echo "<tr><td><center>";
     echo "<input type='hidden' name='judged_id' value=" . $_GET['judged_id'] . ">";
     echo "<input type='submit' name='submit' value='Submit Results'>";
-    echo "</td></tr></center></form></table>\n";
+    echo "</td></tr></center></form> \n";
+    echo "</div>";
+    echo "</div>";
+    echo "</div>";
 
 					    
 
 }
 else
-	echo "No submission was selected";
+	echo "<div class='error'><br>No submission was selected</div>";
 
 # Read the entire file into a string
 # Input: $filename - file path to read
@@ -291,7 +292,7 @@ function read_entire_file($filename) {
 # SQL ERROR
 # Input: $sql - the query with the error
 function sql_error($sql) {
-    echo "<br>Error in SQL command: $sql";
+    echo "<div class='error'><br>Error in SQL command: $sql</div>";
     die;
 }
 ?>
