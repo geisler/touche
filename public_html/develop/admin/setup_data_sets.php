@@ -171,7 +171,7 @@ if(mysql_num_rows($result) > 0) {
 			$file_names = split("/", $file);
 			$file_name = $file_names[count($file_names)-1];
 			$data_set_name = preg_replace("/\.in$/", "",$file_name);
-			$cur_data_sets .= "<tr><td align='center'> $data_set_name</td>";
+			$cur_data_sets .= "<tr><td align='right'> $data_set_name</td>";
 			$cur_data_sets .= "<td align='center'><a href=setup_data_sets.php";
 			$cur_data_sets .= "?remove_ds_name=$data_set_name>Delete</a></td></tr>";
 		}

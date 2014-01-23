@@ -97,6 +97,10 @@
     $row = mysql_fetch_assoc($result);
     $site_current_time = time() - ($row['START_TS'] - $contest_start_ts);
     
+	$sql = "SELECT * FROM SITE where SITE_ID = 1";
+	$result = mysql_query($sql);
+	$siteRow = mysql_fetch_assoc($result);
+	$timePen = $siteRow['TIME_PENALTY'];
 
     for ($i = 0; $i < count($standings); $i++) {
 	$sql  = "SELECT PROBLEM_ID, TS, ATTEMPT, RESPONSE_ID ";
@@ -115,10 +119,9 @@
 
 	while($row = mysql_fetch_assoc($result)) {
 	    if($row['RESPONSE_ID'] == 9) {
-		// each incorrect submission counts as 20 penalty points
-		$incorrect_submission_penalty = ($row['ATTEMPT'] - 1) * $time_penalty;
 		// each minute counts as one penalty point
-		$time_penalty = (int) ((($row['TS'] - $contest_start_ts) / 60)/* + 0.5*/);
+		$time_penalty = (int)((($row['TS'] - $contest_start_ts) / 60));
+		$incorrect_submission_penalty = ($row['ATTEMPT'] - 1) * $timePen;
 		$standings[$i]['problems'][$row['PROBLEM_ID']]['ts'] = $row['TS'];
 		$standings[$i]['problems'][$row['PROBLEM_ID']]['penalty'] = $time_penalty + $incorrect_submission_penalty;
 		$standings[$i]['problems_completed']++;

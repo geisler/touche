@@ -9,6 +9,10 @@
         include("lib/data.inc");
         include("lib/session.inc");
 
+$user = `whoami`;
+$user = str_replace("\n","",$user);
+$user = str_replace(" ","",$user);		
+		
 if ($_POST) {
         $ext_hour = $_POST['ext_hour'];
         $ext_minute = $_POST['ext_minute'];
@@ -72,10 +76,6 @@ if(!$delete) {
 }
 elseif($_POST['B3']) {
 #Clone the contest here
-$user = `whoami`;
-$user = str_replace("\n","",$user);
-$user = str_replace(" ","",$user);
-
 $contest_clone_name = $_POST['clone_name'];
 $db_clone_name = preg_replace("/ /", "_", $contest_clone_name);
 $contest_clone_es = preg_replace("/ /", "\ ", $contest_clone_name);
@@ -331,7 +331,7 @@ elseif($_POST['B4']) {
 		else{
 			//end export database
 			if($_POST['admin_email']) {
-				$cmd = "tar -cf - $path*.cpp $path*.c $path*.java $data_path* | gzip -c > $path";
+				$cmd = "tar -cf - $data_path* $path* | gzip -c > $path";
 				$cmd .= $command .= "$contest_name.tar.gz";
 				system($cmd, $result);
 				if(!$result) {
