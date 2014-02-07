@@ -30,24 +30,24 @@ if (!$contest_info) {
 */
 
 $row = mysql_fetch_assoc($contest_info);
-    if (mysql_num_rows($contest_info) < 1) {
+if (mysql_num_rows($contest_info) < 1) {
 	print "Sorry.  No contest configuration information exists.<br /> ";
 	print "Please contact a system administrator.";
 	exit;
-    }
+}
 
-    $contest_host = $row['HOST'];
-    $contest_name = $row['CONTEST_NAME'];
-    $contest_date = $row['CONTEST_DATE'];
-    list ($contest_year, $contest_month, $contest_day)
+$contest_host = $row['HOST'];
+$contest_name = $row['CONTEST_NAME'];
+$contest_date = $row['CONTEST_DATE'];
+list ($contest_year, $contest_month, $contest_day)
 	= split('-', $contest_date);
 
-    $contest_start_time = $row['START_TIME'];
-    list ($contest_start_hour, $contest_start_minute)
+$contest_start_time = $row['START_TIME'];
+list ($contest_start_hour, $contest_start_minute)
 	= split(':', $contest_start_time);
-    $contest_freeze_time = $row['FREEZE_DELAY'];
-    $contest_end_time = $row['CONTEST_END_DELAY'];
-    $base_dir = $row['BASE_DIRECTORY'];
+$contest_freeze_time = $row['FREEZE_DELAY'];
+$contest_end_time = $row['CONTEST_END_DELAY'];
+$base_dir = $row['BASE_DIRECTORY'];
 
 #    $contest_start_ts = mktime($contest_start_hour,
 #			       $contest_start_minute,
@@ -55,12 +55,12 @@ $row = mysql_fetch_assoc($contest_info);
 #			       $contest_month,
 #			       $contest_day,
 #			       $contest_year);
-	$contest_start_ts = $row['START_TS'];
-    $contest_freeze_ts = $contest_start_ts + $contest_freeze_time;
-    $contest_end_ts = $contest_start_ts + $contest_end_time;
-	$contest_started = $row['HAS_STARTED'];
+$contest_start_ts = $row['START_TS'];
+$contest_freeze_ts = $contest_start_ts + $contest_freeze_time;
+$contest_end_ts = $contest_start_ts + $contest_end_time;
+$contest_started = $row['HAS_STARTED'];
 
-if(isset($team_id)){
+if(isset($team_id)) {
     $sql = "SELECT * FROM SITE, TEAMS ";
     $sql .= "WHERE SITE.SITE_ID = TEAMS.SITE_ID AND TEAMS.TEAM_ID = $team_id";
     $site_info = mysql_query($sql);
@@ -74,10 +74,10 @@ if(isset($team_id)){
 #			       $contest_month,
 #			       $contest_day,
 #			       $contest_year);
-	$site_start_ts = $row['START_TS'];
+    $site_start_ts = $row['START_TS'];
     $site_start_offset = $site_start_ts - $contest_start_ts;
-	$site_started = $row['HAS_STARTED'];
-    }
+    $site_started = $row['HAS_STARTED'];
+}
 
 
 $teams_query = mysql_query("SELECT * FROM TEAMS");
@@ -123,8 +123,9 @@ while ($row = mysql_fetch_assoc($categories_query)) {
     $cat_name = $row['CATEGORY_NAME'];
     if ($cat_name) {
 	$categories[$cat_name]['name'] = $cat_name;
-	if (!isset($categories[$cat_name]['team_ids'])
-		|| !is_array($categories[$cat_name]['team_ids'])) {
+	if (   !isset($categories[$cat_name]['team_ids'])
+	    || !is_array($categories[$cat_name]['team_ids']))
+	{
 	    $categories[$cat_name]['team_ids'] = array();
 	}
 	array_push($categories[$cat_name]['team_ids'], $row['TEAM_ID']);
