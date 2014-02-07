@@ -122,8 +122,8 @@ int determine_proc_usage(const char *proc_arg) {
 void check_path_length(const char *path) {
 	if(strlen(path)+6 > 100)
 	{
-		both_logs("Your path variable is too large, this might be an attempt to comprimise the script\n");
-		both_logs("Exiting program, please shorten your path variable (use synlinks if you need to)\n");
+		both_logs("Your path variable is too large, this might be an attempt to compromise the script\n");
+		both_logs("Exiting program, please shorten your path variable (use symlinks if you need to)\n");
 		exit(-1);
 	}
 }
@@ -143,8 +143,8 @@ void mount_proc(const char *mountpoint) {
 	int result = mount("/proc", mountpoint, "proc", 0x0, NULL);
 	if(result == -1){
 		char* msg = (char*)strerror(errno);
-		both_logs("An error has occured during the mount call:\
-						%d\n%s\n", errno, msg);
+		both_logs("An error has occurred during the mount call:\
+			  %d\n%s\n", errno, msg);
 		exit(-1);
 	}
 }
@@ -153,8 +153,8 @@ void do_chroot(const char *root) {
 	int result = chroot(root);
 	if(result == -1) {
 		char* msg = (char*)strerror(errno);
-		child_log("Child: An error has occured during the chroot call:\
-						%d\n%s\n", errno, msg);
+		child_log("Child: An error has occurred during the chroot call:\
+			  %d\n%s\n", errno, msg);
 		
 		exit(-1);
 	}
@@ -164,8 +164,8 @@ void do_chdir(const char *dir) {
 	int result = chdir(dir);
 	if(result == -1) {
 		char* msg = (char*)strerror(errno);
-		child_log("Child: An error has occured during the chdir call:\
-						%d\n%s\n", errno, msg);
+		child_log("Child: An error has occurred during the chdir call:\
+			  %d\n%s\n", errno, msg);
 		
 		exit(-1);
 	}
@@ -175,29 +175,29 @@ void do_setresgid(int gid) {
 	int result = setresgid(gid, gid, gid);
 	if(result == -1) {
 		char* msg = (char*)strerror(errno);
-		child_log("Child: An error has occured during the setresgid \
-						call: %d\n%s\n", errno, msg);
+		child_log("Child: An error has occurred during the setresgid \
+			  call: %d\n%s\n", errno, msg);
 		child_log("This probably means that the process was \
-				not privilaged enough to make this call\n");
+			  not privileged enough to make this call\n");
 		exit(-1);
 	}
 
-	child_log("Child: Sucessful setresgid\n");
+	child_log("Child: Successful setresgid\n");
 }
 
 void do_setresuid(int uid) {
 	int result = setresuid(uid, uid, uid);
 	if(result == -1) {
 		char* msg = (char*)strerror(errno);
-		child_log("Child: An error has occured during the \
-				setresuid call: %d\n%s\n", errno, msg);
+		child_log("Child: An error has occurred during the \
+			  setresuid call: %d\n%s\n", errno, msg);
 		child_log("This probably means that the process \
-				was not privilaged enough to make this call\n");
+			  was not privilaged enough to make this call\n");
 		exit(-1);
 	}
 
 	child_log("Child: Uid:%d\nEUid:%d\n", getuid(), geteuid());
-	child_log("Child: Sucessful setresuid\n");
+	child_log("Child: Successful setresuid\n");
 }
 
 void reassociate_file(const char *path, const char *mode, FILE *file) {
@@ -252,8 +252,7 @@ char **create_execv_from_command(char *command) {
 	execv[ctr++] = strtok(command, delim);
 	child_log("First Arg: %s\n", execv[0]);
 
-	while((ptr=strtok(NULL, delim)) != NULL)
-	{
+	while((ptr=strtok(NULL, delim)) != NULL) {
 		child_log("Added arg: %s\n", ptr);
 		execv[ctr++] = ptr;
 		if (ctr >= MAX_ARGS - 1) {
@@ -275,14 +274,14 @@ void execute_command(const char *path, const char *command, const char *input, c
 	do_setresuid(JUDGE_UID);
 
 	reassociate_input_and_limited_output(input, output, MAX_OUTPUT_SIZE);
-			
+
 	char *exec_argv = create_command_copy(command);
 	char **execv = create_execv_from_command(exec_argv);
 	execvp(execv[0], execv);
-			
+
 	char* msg = (char*)strerror(errno);
 	child_log("Child: An error has occured during the \
-		execvp call: %d\n%s\n", errno, msg);
+		  execvp call: %d\n%s\n", errno, msg);
 	exit(-1);
 }
 
@@ -338,4 +337,4 @@ exit(1);
 
 	/* should never get here, so it is an error! */
 	return -1;
-};
+}
