@@ -40,16 +40,16 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
     <div class="page-header">
         <div class="container">
         <div class="img-responsive2">
-        	<?php 
-        	$path =  "http://$_SERVER[HTTP_HOST]/images/ToucheLogo.png";
-        	header("Content-Type: image/png");
-        	echo "<img src='$path' alt='Logo'>";
-        	?>
+		<?php
+		$path =  "http://$_SERVER[HTTP_HOST]/images/ToucheLogo.png";
+		header("Content-Type: image/png");
+		echo "<img src='$path' alt='Logo'>";
+		?>
 
         </div>
         <div class="text-right">
-	        <form class="form-inline" name="f" method="post" action="index.php">
-        		<div class="form-group">
+		<form class="form-inline" name="f" method="post" action="index.php">
+			<div class="form-group">
 				    <input type="text" class="form-control" name="user" size="30" placeholder="Username">
 				</div>
 				<div class="form-group">

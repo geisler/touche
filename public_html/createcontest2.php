@@ -32,7 +32,6 @@ if($_POST['B1'] == "Submit") {
 </div>
 <div class="container">
 <table width="90%" class="table" align="center">
-                                   
 <?php
 
 $user = `whoami`;
@@ -58,37 +57,37 @@ echo "<p>Clearing folders . . . ";
    $cmd2 .= $contest_dir;
    $cmd2 .= "/data/*";
    system($cmd2, $result);
-   echo "Result: $result \n";
+ echo "Result: $result \n";
    $cmd2 = "rm -rf ";
    $cmd2 .= $contest_dir;
    $cmd2 .= "/judged/*";
    system($cmd2, $result);
-   echo "Result: $result \n";
+ echo "Result: $result \n";
    $cmd2 = "rm -rf ";
    $cmd2 .= $contest_dir;
    $cmd2 .= "/queue/*";
    system($cmd2, $result);
-   echo "Result: $result \n";
+ echo "Result: $result \n";
    $cmd2 = "rm -rf ";
    $cmd2 .= $contest_dir;
    $cmd2 .= "/test_compile/*";
    system($cmd2, $result);
-   echo "Result: $result \n";
+ echo "Result: $result \n";
    $cmd2 = "rm -rf ";
    $cmd2 .= $contest_dir;
    $cmd2 .= "/c_jail/home/$user/*";
    system($cmd2, $result);
-   echo "Result: $result \n";
+ echo "Result: $result \n";
    $cmd2 = "rm -rf ";
    $cmd2 .= $contest_dir;
    $cmd2 .= "/cpp_jail/home/$user/*";
    system($cmd2, $result);
-   echo "Result: $result \n";
+ echo "Result: $result \n";
    $cmd2 = "rm -rf ";
    $cmd2 .= $contest_dir;
    $cmd2 .= "/java_jail/home/$user/*";
    system($cmd2, $result);
-   echo "Result: $result \n";
+ echo "Result: $result \n";
 echo"Finished.</p>\n";
 
 echo "<p>Making Directories . . . ";
@@ -96,126 +95,126 @@ echo "<p>Making Directories . . . ";
    $cmd2 .= $contest_dir;
    $cmd2 .= "/c_jail/home";
    system($cmd2, $result);
-   echo "Result: $result \n";
+ echo "Result: $result \n";
    $cmd2 = "mkdir -p ";
    $cmd2 .= $contest_dir;
    $cmd2 .= "/c_jail/home/$user";
    system($cmd2, $result);
-   echo "Result: $result \n";
+ echo "Result: $result \n";
    $cmd2 = "mkdir -p ";
    $cmd2 .= $contest_dir;
    $cmd2 .= "/c_jail/home/$user/";
    $cmd2 .= $contest;
    $cmd2 .= "/judged";
    system($cmd2, $result);
-   echo "Result: $result \n";
+ echo "Result: $result \n";
    $cmd2 = "mkdir -p ";
    $cmd2 .= $contest_dir;
    $cmd2 .= "/c_jail/home/$user/";
    $cmd2 .= $contest;
    $cmd2 .= "/data";
    system($cmd2, $result);
-   echo "Result: $result \n";
+ echo "Result: $result \n";
    $cmd2 = "mkdir -p ";
    $cmd2 .= $contest_dir;
    $cmd2 .= "/cpp_jail/home";
    system($cmd2, $result);
-   echo "Result: $result \n";
+ echo "Result: $result \n";
    $cmd2 = "mkdir -p ";
    $cmd2 .= $contest_dir;
    $cmd2 .= "/cpp_jail/home/$user";
    system($cmd2, $result);
-   echo "Result: $result \n";
+ echo "Result: $result \n";
    $cmd2 = "mkdir -p ";
    $cmd2 .= $contest_dir;
    $cmd2 .= "/cpp_jail/home/$user/";
    $cmd2 .= $contest;
    $cmd2 .= "/judged";
    system($cmd2, $result);
-   echo "Result: $result \n";
+ echo "Result: $result \n";
    $cmd2 = "mkdir -p ";
    $cmd2 .= $contest_dir;
    $cmd2 .= "/cpp_jail/home/$user/";
    $cmd2 .= $contest;
    $cmd2 .= "/data";
    system($cmd2, $result);
-   echo "Result: $result \n";
+ echo "Result: $result \n";
    $cmd2 = "mkdir -p ";
    $cmd2 .= $contest_dir;
    $cmd2 .= "/java_jail/home";
    system($cmd2, $result);
-   echo "Result: $result \n";
+ echo "Result: $result \n";
    $cmd2 = "mkdir -p ";
    $cmd2 .= $contest_dir;
    $cmd2 .= "/java_jail/home/$user";
    system($cmd2, $result);
-   echo "Result: $result \n";
+ echo "Result: $result \n";
    $cmd2 = "mkdir -p ";
    $cmd2 .= $contest_dir;
    $cmd2 .= "/java_jail/home/$user/";
    $cmd2 .= $contest;
    $cmd2 .= "/judged";
    system($cmd2, $result);
-   echo "Result: $result \n";
+ echo "Result: $result \n";
    $cmd2 = "mkdir -p ";
    $cmd2 .= $contest_dir;
    $cmd2 .= "/java_jail/home/$user/";
    $cmd2 .= $contest;
    $cmd2 .= "/data";
    system($cmd2, $result);
-   echo "Result: $result \n";
+ echo "Result: $result \n";
 echo"Finished.</p>\n";
 
 echo "<p> Adding in jail files. . . ";
 //cpp_jail
-	$user = str_replace("\n","",$user);
-	$cmd = "cp -R /home/$user/jails/cpp_jail/lib64 /home/$user/$contest/cpp_jail/lib64";
-	system($cmd,$result);
-	echo "Result: $result \n";
-	$cmd = "cp -R /home/$user/jails/cpp_jail/usr /home/$user/$contest/cpp_jail/usr";
-	system($cmd,$result);
-	echo "Result: $result \n";
-	$cmd = "cp -R /home/$user/jails/cpp_jail/lib /home/$user/$contest/cpp_jail/lib";
-	system($cmd,$result);
-	echo "Result: $result \n";
-	$cmd = "cp -R /home/$user/jails/cpp_jail/bin /home/$user/$contest/cpp_jail/bin";
-	system($cmd,$result);
-	echo "Result: $result \n";
+   $user = str_replace("\n","",$user);
+   $cmd = "cp -R /home/$user/jails/cpp_jail/lib64 /home/$user/$contest/cpp_jail/lib64";
+   system($cmd,$result);
+ echo "Result: $result \n";
+   $cmd = "cp -R /home/$user/jails/cpp_jail/usr /home/$user/$contest/cpp_jail/usr";
+   system($cmd,$result);
+ echo "Result: $result \n";
+   $cmd = "cp -R /home/$user/jails/cpp_jail/lib /home/$user/$contest/cpp_jail/lib";
+   system($cmd,$result);
+ echo "Result: $result \n";
+   $cmd = "cp -R /home/$user/jails/cpp_jail/bin /home/$user/$contest/cpp_jail/bin";
+   system($cmd,$result);
+ echo "Result: $result \n";
 
-//c_jail	
-	$cmd = "cp -R /home/$user/jails/c_jail/lib64 /home/$user/$contest/c_jail/lib64";
-	system($cmd,$result);
-	echo "Result: $result | dir = $contest \n";
-	$cmd = "cp -R /home/$user/jails/c_jail/usr /home/$user/$contest/c_jail/usr";
-	system($cmd,$result);
-	echo "Result: $result \n";
-	$cmd = "cp -R /home/$user/jails/c_jail/lib /home/$user/$contest/c_jail/lib";
-	system($cmd,$result);
-	echo "Result: $result \n";
-	$cmd = "cp -R /home/$user/jails/c_jail/bin /home/$user/$contest/c_jail/bin";
-	system($cmd,$result);
-	echo "Result: $result \n";
+//c_jail
+   $cmd = "cp -R /home/$user/jails/c_jail/lib64 /home/$user/$contest/c_jail/lib64";
+   system($cmd,$result);
+ echo "Result: $result | dir = $contest \n";
+   $cmd = "cp -R /home/$user/jails/c_jail/usr /home/$user/$contest/c_jail/usr";
+   system($cmd,$result);
+ echo "Result: $result \n";
+   $cmd = "cp -R /home/$user/jails/c_jail/lib /home/$user/$contest/c_jail/lib";
+   system($cmd,$result);
+ echo "Result: $result \n";
+   $cmd = "cp -R /home/$user/jails/c_jail/bin /home/$user/$contest/c_jail/bin";
+   system($cmd,$result);
+ echo "Result: $result \n";
 
-//java_jail	
-	$cmd = "cp -R /home/$user/jails/java_jail/lib64 /home/$user/$contest/java_jail/lib64";
-	system($cmd,$result);
-	echo "Result: $result | dir = $contest \n";
-	$cmd = "cp -R /home/$user/jails/java_jail/usr /home/$user/$contest/java_jail/usr";
-	system($cmd,$result);
-	$cmd = "sudo cp -R /home/$user/jails/java_jail/proc /home/$user/$contest/java_jail/proc";
-	system($cmd,$result);
-	echo "Result: $result \n";
-	$cmd = "cp -R /home/$user/jails/java_jail/lib /home/$user/$contest/java_jail/lib";
-	system($cmd,$result);
-	echo "Result: $result \n";
-	$cmd = "cp -R /home/$user/jails/java_jail/bin /home/$user/$contest/java_jail/bin";
-	system($cmd,$result);
-	echo "Result: $result \n";
-	
-	$test = "chmod -R 0755 /home/$user/$contest";
-	system($test);
-	echo "Finished</p>";
-	
+//java_jail
+   $cmd = "cp -R /home/$user/jails/java_jail/lib64 /home/$user/$contest/java_jail/lib64";
+   system($cmd,$result);
+ echo "Result: $result | dir = $contest \n";
+   $cmd = "cp -R /home/$user/jails/java_jail/usr /home/$user/$contest/java_jail/usr";
+   system($cmd,$result);
+   $cmd = "sudo cp -R /home/$user/jails/java_jail/proc /home/$user/$contest/java_jail/proc";
+   system($cmd,$result);
+ echo "Result: $result \n";
+   $cmd = "cp -R /home/$user/jails/java_jail/lib /home/$user/$contest/java_jail/lib";
+   system($cmd,$result);
+ echo "Result: $result \n";
+   $cmd = "cp -R /home/$user/jails/java_jail/bin /home/$user/$contest/java_jail/bin";
+   system($cmd,$result);
+ echo "Result: $result \n";
+
+   $test = "chmod -R 0755 /home/$user/$contest";
+   system($test);
+echo "Finished</p>";
+
 echo "<p>Creating Database . . . ";
    $cmd3 = "mysqladmin --password=$dbPass -u root create $db_name";
    system($cmd3, $result);
@@ -224,7 +223,7 @@ echo "<p>Creating Database . . . ";
    $cmd4 = "cp -r develop/ ./";
    $cmd4 .= $contest;
    system($cmd4, $result);
-   
+
 $link = mysql_connect($dbhost, $dbU, $dbpw);
 if (!$link) {
     print "Sorry.  Database connect failed.";
@@ -285,22 +284,22 @@ fclose($fhdl);
 $cmd5 = "gcc -o ../$contest_noesc/chroot_wrapper.exe ../$contest_noesc/chroot_wrapper.c";
 system($cmd5, $result);
 if($result) {
-echo "Something happened<br>";
+    echo "Something happened<br>";
 }
 $cmd5 = "sudo chown root:root ../$contest_noesc/chroot_wrapper.exe";
 system($cmd5, $result);
 if($result) {
-echo "Unable to set root permissions on chroot wrapper<br>";
+    echo "Unable to set root permissions on chroot wrapper<br>";
 }
 $cmd5 = "sudo chmod +xs ../$contest_noesc/chroot_wrapper.exe";
 system($cmd5, $result);
 if($result) {
-echo "Unable to set chroot wrapper setuid<br>";
+    echo "Unable to set chroot wrapper setuid<br>";
 }
 $cmd5 = "sudo chmod -R go+rx $contest_noesc";
 system($cmd5, $result);
 if ($result) {
-echo "Unable to set contest directory permissions<br />";
+    echo "Unable to set contest directory permissions<br />";
 }
 echo "Finished.</p>";
 
