@@ -29,14 +29,16 @@ if ($selected_category=="Overall") {
     echo "<a href=\"standings.php?selected_category=Overall\">Overall</a>";
 }
 
-foreach ($categories as $category) {
-    if ($selected_category == $category['name']) {
-	echo " | $category[name]";
-    }
-    else {
-    	echo " | <a href=\"standings.php?selected_category=$category[name]\">";
-	echo "$category[name]</a>";
-    }
+if ($categories) {
+	foreach ($categories as $category) {
+		if ($selected_category == $category['name']) {
+		echo " | $category[name]";
+		}
+		else {
+			echo " | <a href=\"standings.php?selected_category=$category[name]\">";
+		echo "$category[name]</a>";
+		}
+	}
 }
 echo "</center>\n";
 

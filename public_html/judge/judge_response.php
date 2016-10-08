@@ -161,7 +161,7 @@ if($_GET){
 	
 		default:
 			$know_output = preg_replace("/\.in/", ".out", $row['IN_FILE']);
-			$source_file = preg_replace("/\.(cc|cpp|c|java)/", "", $source_file);	
+			$source_file = preg_replace("/\.(cc|cpp|c|java|py)/", "", $source_file);	
 			$program_output = $problem_handle['judged_dir']	.  $source_file . "_" . $know_output;
 			$diff_out_file = $program_output . ".diff";
 			$diff_no_ws_out_file = $diff_out_file . ".no_ws";

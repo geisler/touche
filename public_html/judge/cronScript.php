@@ -241,6 +241,7 @@ while($submits = mysql_fetch_assoc($submits_result)) {
 								$problem_handle['output'];
 #make use of bash'es built in ulimit capabilities
 							$args = array("-c","ulimit -t $safe_max_cpu_time;$arg_cmd");
+							$envs = array("HOME" => "$base_dir/..");
 							#before we execute, 
 							#we have to move the executable
 							$tmp_cmd = $problem_handle['copy_cmd']();
@@ -277,7 +278,7 @@ while($submits = mysql_fetch_assoc($submits_result)) {
 							}
 							fclose($child_log);
 							umask(0);
-							pcntl_exec("/bin/sh", $args);
+							pcntl_exec("/bin/sh", $args, $envs);
 						}
 						else{
 							#
