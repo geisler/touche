@@ -1,4 +1,4 @@
-<?
+<?php
 #
 # Copyright (C) 2005 Steve Overton
 # Copyright (C) 2005 David Crim
@@ -107,7 +107,7 @@ while($submits = mysql_fetch_assoc($submits_result)) {
 		echo "\ninclude_once('Lang/$lang_name.inc');\n";
 		include_once("Lang/$lang_name.inc");
 		$init_name = $lang_name . "_init";
-		$init_name(&$problem_handle);
+		$init_name($problem_handle);
 
 		$use_proc_fs = $problem_handle['use_proc_fs'];
 		# Replace headers
@@ -247,7 +247,7 @@ while($submits = mysql_fetch_assoc($submits_result)) {
 							$tmp_cmd = $problem_handle['copy_cmd']();
 							system($tmp_cmd, $result);
 							echo "\n\nsys 265: $tmp_cmd\n\n";
-							if(!result)
+							if(!$result)
 							{
 								print "Something went wrong with copying the executable to the chroot jail<br>";
 								print "Cmd: $tmp_cmd<br>";
@@ -446,7 +446,7 @@ while($submits = mysql_fetch_assoc($submits_result)) {
                                                 $sub_source =
                                                         $problem_handle['file_name'] . "_" . $outfile;
 				echo "\nauto_resopnse_number: $auto_response_number\n";	        
-    				if($auto_response_number != RUNTIME){
+    				if($auto_response_number != ERUNTIME){
 					echo "\nerror: $run_time_errorno\n";
 					update_submission($judged_id,$auto_response_number, $cur_input, $run_time_errorno);
 				}
@@ -545,7 +545,7 @@ function save_file($filename,$file) {
 #        $auto_response_number - response number
 function update_submission($judged_id,$auto_response_number,$in_file, $error_no = NULL) {
     if($error_no){
-	    echo "\nerrorno: $errorno\n";
+	    echo "\nerrorno: $error_no\n";
 	    $sql = "INSERT INTO AUTO_RESPONSES (JUDGED_ID, IN_FILE, AUTO_RESPONSE, ERROR_NO) ";
 	    $sql .= "VALUES ($judged_id, '$in_file', $auto_response_number, $error_no)";
     }

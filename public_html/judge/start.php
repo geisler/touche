@@ -1,4 +1,4 @@
-<?
+<?php
 #
 # Copyright (C) 2013 Jonathan Geisler
 # Copyright (C) 2005 David Crim
@@ -14,7 +14,7 @@ include_once("lib/header.inc");
 
 judge_header(0);
 
-function make_file_readable($fp, $missing_files) {
+function make_file_readable($fp, &$missing_files) {
 	if (file_exists($fp)) {
 		chmod($fp, 0755);
 	} else {
@@ -22,11 +22,11 @@ function make_file_readable($fp, $missing_files) {
 	}
 }
 
-if($_POST['submit'] == 'Start')
+if(isSet($_POST['submit']) && $_POST['submit'] == 'Start')
 {
-	$cur_hour = date(G);
-	$cur_minute = date(i);
-	$cur_second = date(s);
+	$cur_hour = date('G');
+	$cur_minute = date('i');
+	$cur_second = date('s');
 #	system("crontab $base_dir/start_contest.crontab", $result);
 	system("touch $base_dir/../active-contests/$contest_name", $result);
         if ($result != 0){
@@ -48,9 +48,9 @@ if(mysql_num_rows($result) > 0) {
 
 		$missing_files = 0;
 		$problem_name = "$dir_name/" . $row['PROBLEM_NAME'];
-		make_file_readable("$problem_name.html", &$missing_files);
-		make_file_readable("$problem_name.ps", &$missing_files);
-		make_file_readable("$problem_name.pdf", &$missing_files);
+		make_file_readable("$problem_name.html", $missing_files);
+		make_file_readable("$problem_name.ps", $missing_files);
+		make_file_readable("$problem_name.pdf", $missing_files);
 		if ($missing_files == 3) {
 			echo "Warning: no problem file for " . $row['PROBLEM_NAME'] . "<br />";
 		}

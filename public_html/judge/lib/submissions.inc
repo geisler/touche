@@ -1,4 +1,4 @@
-<?
+<?php
 #
 # Copyright (C) 2005 Steve Overton
 # Copyright (C) 2005 David Crim
@@ -10,7 +10,7 @@
 #
 # Set up default directories
 
-if($_SERVER['REQUEST_METHOD'] == 'POST' && !$_POST['team']) {
+if($_SERVER['REQUEST_METHOD'] == 'POST' && !isSet($_POST['team'])) {
     if ($page == "judge.php"){
 	$set = "SET RESPONSE_ID = $_POST[result], JUDGED = 1 ";
     }	
@@ -41,11 +41,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && !$_POST['team']) {
     ob_flush();
     sleep(2);
 }
-if ($_POST['team']){
+if (isSet($_POST['team']) && $_POST['team']){
 	$_SESSION['team'] = $_POST['team'];
+	$team_filter = $_SESSION['team'];
+} else {
+	$team_filter = "all";
 }
 
-$team_filter = $_SESSION['team'];
 
 $sql = "SELECT * ";
 $sql .= "FROM PROBLEMS";
@@ -168,6 +170,9 @@ if($row = mysql_fetch_assoc($sql_result)){
 	}
 	if (mysql_num_rows($sql_result) == 0)
 		$end_string = "there are no submissions for this problem";	
+	else {
+		$end_string = "";
+	}
 	if ($team_show == 0)
         	$team_id = "Team ID";
         else

@@ -1,4 +1,4 @@
-<?
+<?php
 #
 # Copyright (C) 2005 Steve Overton
 #
@@ -17,3 +17,4 @@ echo "<center>Please select an option.</center>";
 
 
 include_once("lib/footer.inc");
+?>

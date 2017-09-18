@@ -1,4 +1,4 @@
-<?
+<?php
 #
 # Copyright (C) 2002, 2003 David Whittington
 # Copyright (C) 2003, 2005 Jonathan Geisler
@@ -34,13 +34,14 @@ if (mysql_num_rows($contest_info) > 0) {
     $contest_name = $row['CONTEST_NAME'];
     $contest_date = $row['CONTEST_DATE'];
     list ($contest_year, $contest_month, $contest_day)
-	= split('-', $contest_date);
+	= explode('-', $contest_date);
 
     $contest_start_time = $row['START_TIME'];
     list ($contest_start_hour, $contest_start_minute)
-	= split(':', $contest_start_time);
+	= explode(':', $contest_start_time);
     $contest_freeze_time = $row['FREEZE_DELAY'];
     $contest_end_time = $row['CONTEST_END_DELAY'];
+    $contest_ext_time = 0;
     $base_dir = $row['BASE_DIRECTORY'];
 
     $contest_start_ts = mktime($contest_start_hour,

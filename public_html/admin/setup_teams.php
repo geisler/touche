@@ -14,6 +14,18 @@ include_once("lib/admin_config.inc");
 include_once("lib/data.inc");
 include_once("lib/session.inc");
 include_once("lib/header.inc");
+
+$edit_site_id = -1;
+$edit_team_name = "";
+$edit_organization = "";
+$edit_username = "";
+$edit_coach_name = "";
+$edit_contestant_1_name = "";
+$edit_contestant_2_name = "";
+$edit_contestant_3_name = "";
+$edit_alternate_name = "";
+$edit_email = "";
+
 if ($_GET)
 {
 	if(isset($_GET['team_id']))
@@ -126,7 +138,7 @@ else if($_POST)
 			$result = mysql_query($sql);
 			if($result)
 			{
-				$error_msg = "Successfull: New team created";
+				$error_msg = "Successful: New team created";
 			}
 			else{
 				$error_msg = "Error:" . mysql_error();
@@ -139,7 +151,7 @@ else if($_POST)
 End of POST section
 *******************************************************/
 //build some http strings we'll need later
-if(!$action)
+if(!isSet($action))
 {
 	$action = "Add a new team";
 }
@@ -226,7 +238,7 @@ else
 	echo " <td width=50%>";
 	echo " <form action=setup_teams.php method=post>";
 	echo "	<table width=100% cellpadding=5 cellspacing=1 border=0> ";
-	if($error_msg)
+	if(isSet($error_msg))
 	{
 		echo "<tr><td><b>$error_msg</b></td></tr>";
 	}
@@ -260,7 +272,7 @@ else
 	echo "			value = '$edit_username'></td>";
 	echo "	  </tr> ";
 //-----------------------------------------------------------------------------------------------
-if(!$edit_password) {
+if(!isSet($edit_password)) {
 	srand((double)microtime()*1000000);
 	$token = md5(uniqid(rand()));
 	$edit_password = substr($token, 0, 3);

@@ -19,6 +19,11 @@ include_once("lib/header.inc");
 $problem_dir =  __FILE__;
 $problem_dir = str_replace("admin/setup_problems.php", "", $problem_dir) . "problems/";
 
+$edit_problem_loc = "";
+$edit_problem_name = "";
+$edit_problem_id = -1;
+$edit_problem_note = "";
+
 if ($_GET)
 {
 	if(isset($_GET['problem_id']))
@@ -107,9 +112,24 @@ else if($_POST)
 			$error_msg .= "The location:" . $problem_dir . $_POST['problem_loc'];
 			$error_msg .= " does not exist.";
 		}
-		print "File lengths:" . strlen($_FILES['ps_file']['tmp_name']) . strlen($_FILES['html_file']['tmp_name']) . strlen($_FILES['pdf_file']['tmp_name']);
+		if (isSet($_FILES['ps_file'])) {
+			$ps_length = strlen($_FILES['ps_file']['tmp_name']);
+		} else {
+			$ps_length = 0;
+		}
+		if (isSet($_FILES['pdf_file'])) {
+			$pdf_length = strlen($_FILES['pdf_file']['tmp_name']);
+		} else {
+			$pdf_length = 0;
+		}
+		if (isSet($_FILES['html_file'])) {
+			$html_length = strlen($_FILES['html_file']['tmp_name']);
+		} else {
+			$html_length = 0;
+		}
+		print "File lengths: $ps_length $pdf_length $html_length";
 		//process new file uploads if they exist
-		if(($_POST['upload_ps_id']) && strlen($_FILES['ps_file']['tmp_name']) > 0)
+		if(isSet($_POST['upload_ps_id']) && $ps_length > 0)
 		{
 			$result = move_uploaded_file($_FILES['ps_file']['tmp_name'], 
 					$problem_dir . $_POST['problem_loc'] . "/" .  $_POST['problem_name'] . ".ps");
@@ -118,7 +138,7 @@ else if($_POST)
 				$error_msg .= "Failed to upload ps file";
 			}
 		}
-		if(($_POST['upload_html_id']) && strlen($_FILES['html_file']['tmp_name']) > 0)
+		if(isSet($_POST['upload_html_id']) && $html_length > 0)
 		{
 			$result = move_uploaded_file($_FILES['html_file']['tmp_name'], 
 					$problem_dir . $_POST['problem_loc'] . "/" .  $_POST['problem_name'] . ".html");
@@ -127,7 +147,7 @@ else if($_POST)
 				$error_msg .= "Failed to upload html file";
 			}
 		}
-		if(($_POST['upload_pdf_id']) && strlen($_FILES['pdf_file']['tmp_name']) > 0)
+		if(isSet($_POST['upload_pdf_id']) && $pdf_length > 0)
 		{
 			$result = move_uploaded_file($_FILES['pdf_file']['tmp_name'], 
 					$problem_dir . $_POST['problem_loc'] . "/" .  $_POST['problem_name'] . ".pdf");
@@ -156,7 +176,7 @@ else if($_POST)
 				}
 			}
 			//--------------------------------------------------------------------------------------------------------
-			else if($error_msg) {
+			else if(isSet($error_msg)) {
 				$error_msg .= "No Problem Created";
 			}
 			//--------------------------------------------------------------------------------------------------------
@@ -171,10 +191,10 @@ else if($_POST)
 				$result = mysql_query($sql);
 				if($result)
 				{
-					$error_msg .= "Successfull: New problem created";
+					$error_msg = "Successful: New problem created";
 				}
 				else{
-					$error_msg .= "Error:" . mysql_error();
+					$error_msg = "Error:" . mysql_error();
 					$error_msg .= "<br>SQL: $sql";
 				}
 			}
@@ -192,7 +212,7 @@ else
 End of POST section
 *******************************************************/
 //build some http strings we'll need later
-if(!$action)
+if(!isSet($action))
 {
 	$action = "Add a new problem";
 }
@@ -220,7 +240,7 @@ else
 	$cur_problems = "No current problems";
 }
 
-$http_ps.="	  <tr bgcolor=\"$data_bg_color1\">";
+$http_ps ="	  <tr bgcolor=\"$data_bg_color1\">";
 $http_ps.="		<td>Problem Postscript: </td>";
 if(file_exists("../problems/" . $edit_problem_loc . "/" . $edit_problem_name . ".ps"))
 {
@@ -237,7 +257,7 @@ $http_ps.="		<input type=file name=ps_file></input></td>";
 $http_ps.="	  </tr> ";
 
 
-$http_html.="	  <tr bgcolor=\"$data_bg_color1\">";
+$http_html ="	  <tr bgcolor=\"$data_bg_color1\">";
 $http_html.="		<td>Problem html: </td>";
 if(file_exists("../problems/" . $edit_problem_loc . "/" . $edit_problem_name . ".html"))
 {
@@ -254,7 +274,7 @@ $http_html.="		<input type=file name=html_file></input></td>";
 $http_html.="	  </tr> ";
 
 
-$http_pdf.="	  <tr bgcolor=\"$data_bg_color1\">";
+$http_pdf ="	  <tr bgcolor=\"$data_bg_color1\">";
 $http_pdf.="		<td>Problem pdf: </td>";
 if(file_exists("../problems/" . $edit_problem_loc . "/" . $edit_problem_name . ".pdf"))
 {
@@ -281,7 +301,7 @@ $http_pdf.="	  </tr> ";
 	echo " <td width=50%>";
 	echo " <form enctype='multipart/form-data' action=setup_problems.php method=post>";
 	echo "	<table width=100% cellpadding=5 cellspacing=1 border=0> ";
-	if($error_msg)
+	if(isSet($error_msg))
 	{
 		echo "<tr><td><b>$error_msg</b></td></tr>";
 	}
@@ -292,7 +312,7 @@ $http_pdf.="	  </tr> ";
 	echo "	  <tr bgcolor='$hd_bg_color1'> ";
 	echo "		<td align='center' colspan=2>";
 	echo "			<font color='$hd_txt_color1'>";
-	echo "				<b>Add or Edit Categories</b></font>";
+	echo "				<b>Add or Edit Problems</b></font>";
 	echo "		</td>";
 	echo "	  </tr>";
 	echo "	  <tr bgcolor=$hd_bg_color2>";
@@ -313,7 +333,7 @@ $http_pdf.="	  </tr> ";
 	echo "		<td>Problem notes: </td>";
 	echo "		<td><textarea rows=5 name='problem_note'>$edit_problem_note</textarea></td>";
 	echo "	  </tr> ";
-	if($_SESSION['edit_problem'])
+	if(isSet($_SESSION['edit_problem']))
 	{
 		echo $http_ps;
 		echo $http_html;

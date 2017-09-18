@@ -130,7 +130,7 @@ else if ($_GET)
 End of POST section
 *******************************************************/
 //build some http strings we'll need later
-if(!$action)
+if(!isSet($action))
 {
 	$action = "Add a new data set";
 }
@@ -168,7 +168,7 @@ else
 
 if(isset($_GET['problem_id']) || isset($_POST['problem_id']))
 {
-	$http_form .=  "	  <tr bgcolor=\"$data_bg_color1\">";
+	$http_form =  "	  <tr bgcolor=\"$data_bg_color1\">";
 	$http_form .=  "		<td>Input File: </td>";
 	$http_form .=  "		<td><input type='file' name='data_set_in'</td>";
 	$http_form .=  "	  </tr> ";
@@ -181,6 +181,8 @@ if(isset($_GET['problem_id']) || isset($_POST['problem_id']))
 else
 {
 	$action = "Select a problem from the left to add a data set";
+	$http_form = "";
+	$problem_id = -1;
 }
 
 
@@ -193,7 +195,7 @@ else
 	echo " <form action=setup_data_sets.php enctype='multipart/form-data' method=post>";
 	echo " <input type=hidden name=problem_id value=$problem_id>";
 	echo "	<table width=100% cellpadding=5 cellspacing=1 border=0> ";
-	if($error_msg)
+	if(isSet($error_msg))
 	{
 		echo "<tr><td><b>$error_msg</b></td></tr>";
 	}

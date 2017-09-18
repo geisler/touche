@@ -1,4 +1,4 @@
-<?
+<?php
 # TEST COMPILE
 # Copyright (C) 2002, 2003 David Whittington
 # Copyright (C) 2005 Jonathan Geisler

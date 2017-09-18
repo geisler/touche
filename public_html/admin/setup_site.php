@@ -14,6 +14,9 @@ include_once("lib/admin_config.inc");
 include_once("lib/data.inc");
 include_once("lib/session.inc");
 include_once("lib/header.inc");
+
+$edit_site_name = "";
+
 if ($_GET)
 {
 	if(isset($_GET['site_id']))
@@ -100,14 +103,25 @@ else if($_POST)
 		}
 		else
 		{		
-			//adding a new person
+			//adding a new site
+			// consider using ?? if ever upgrading to PHP7
+			if (isSet($_POST['start_time_hours'])) {
+				$start_hours = $_POST['start_time_hours'];
+			} else {
+				$start_hours = 0;
+			}
+			if (isSet($_POST['start_time_minutes'])) {
+				$start_minutes = $_POST['start_time_minutes'];
+			} else {
+				$start_minutes = 0;
+			}
 			$sql = "INSERT into SITE (SITE_NAME, START_TIME) ";
 			$sql .= "values('" . $_POST['site_name'] . "',";
-			$sql .= "'" . $_POST['start_time_hours'] . ":" . $_POST['start_time_minutes'] . "')";
+			$sql .= "'$start_hours:$start_minutes')";
 			$result = mysql_query($sql);
 			if($result)
 			{
-				$error_msg = "Successfull: New site created";
+				$error_msg = "Successful: New site created";
 			}
 			else{
 				$error_msg = "Error:" . mysql_error();
@@ -120,12 +134,12 @@ else if($_POST)
 End of POST section
 *******************************************************/
 //build some http strings we'll need later
-if(!$action)
+if(!isSet($action))
 {
 	$action = "Add a new site";
 }
 $cur_sites = "";
-//get all the current categories
+//get all the current sites
 $sql = "select * from SITE";
 $result = mysql_query($sql);
 if(mysql_num_rows($result) > 0) {
@@ -145,7 +159,7 @@ if(mysql_num_rows($result) > 0) {
 }
 else
 {
-	$cur_sites = "No current categories";
+	$cur_sites = "No current sites";
 }
 
 //must be a http GET
@@ -156,7 +170,7 @@ else
 	echo " <td width=50%>";
 	echo " <form action=setup_site.php method=post>";
 	echo "	<table width=100% cellpadding=5 cellspacing=1 border=0> ";
-	if($error_msg)
+	if(isSet($error_msg))
 	{
 		echo "<tr><td><b>$error_msg</b></td></tr>";
 	}

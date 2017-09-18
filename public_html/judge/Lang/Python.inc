@@ -1,7 +1,7 @@
-<?
+<?php
 include_once("generic.inc");
 
-function Python_init($problem_handle) {
+function Python_init(&$problem_handle) {
 	$problem_handle['preprocess'] = "python_do_nothing";
 	$problem_handle['compile'] = "python_do_nothing";
 	$problem_handle['execute'] = "python_execute";

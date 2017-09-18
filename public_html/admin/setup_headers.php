@@ -99,7 +99,7 @@ else if($_POST)
 End of POST section
 *******************************************************/
 //build some http strings we'll need later
-if(!$action)
+if(!isSet($action))
 {
 	$action = "Please select a language to edit";
 }
@@ -133,7 +133,7 @@ else
 	echo " <td width=50%>";
 	echo " <form action=setup_headers.php method=post>";
 	echo "	<table width=100% cellpadding=5 cellspacing=1 border=0> ";
-	if($error_msg)
+	if(isSet($error_msg))
 	{
 		echo "<tr><td><b>$error_msg</b></td></tr>";
 	}

@@ -1,7 +1,7 @@
-<?
+<?php
 include_once("generic.inc");
 
-function JAVA_init($problem_handle) {
+function JAVA_init(&$problem_handle) {
 	$problem_handle['preprocess'] = "java_preprocess";
 	$problem_handle['compile'] = "java_compile";
 	$problem_handle['execute'] = "java_execute";
@@ -10,6 +10,8 @@ function JAVA_init($problem_handle) {
 	$problem_handle['use_proc_fs'] = 1; 
 	$problem_handle['process_errors'] = "generic_process_errors"; 
 	$problem_handle['check_forbidden'] = "java_check_forbidden";
+// Embedded version assumption! -- Needs to be "parameterized" through a setting in some config file. -sb
+	$problem_handle['java_path'] = "/opt/sun-jdk-1.6.0.15/bin";
 }
 
 function java_copy(){
@@ -44,9 +46,7 @@ function java_compile() {
     global $problem_handle;
     mkdir($problem_handle['judged_dir'] . $problem_handle['file_name'], 0700);
 
-// Embedded version assumption! -- Needs to be "parameterized" through a setting in some config file. -sb
-#    $command  = "/usr/java/jdk1.5.0_02/bin/javac ";
-    $command  = "/opt/sun-jdk-1.6.0.15/bin/javac ";
+    $command  = "$problem_handle[java_path]/javac ";
     $command .= $problem_handle['judged_dir'];
     $command .= $problem_handle['file_name'];
     $command .= ".java -d ";
@@ -62,8 +62,7 @@ function java_compile() {
 function java_execute() {
     global $problem_handle;
     $mem_size = "128M";
-// Embedded version assumption! -- Needs to be "parameterized" through a setting in some config file. -sb
-    $command  = "\"/opt/sun-jdk-1.6.0.15/bin/java -Xms$mem_size -Xmx$mem_size -jar ";
+    $command  = "\"$problem_handle[java_path]/java -Xms$mem_size -Xmx$mem_size -jar ";
     $command .= $problem_handle['jar_filename'] . "\"";
     return $command;
 }
@@ -102,7 +101,7 @@ function java_post_process() {
     $problem_handle['jar_filename'] .= $problem_handle['file_name'];
     $problem_handle['jar_filename'] .= "/$main_class.jar";
 
-    $command  = "jar cfm ";
+    $command  = "$problem_handle[java_path]/jar cfm ";
     $command .= $problem_handle['jar_filename'];
     $command .= " $manifest_filename -C ";
     $command .= $problem_handle['judged_dir'];

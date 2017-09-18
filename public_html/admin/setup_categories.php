@@ -14,6 +14,9 @@ include_once("lib/admin_config.inc");
 include_once("lib/data.inc");
 include_once("lib/session.inc");
 include_once("lib/header.inc");
+
+$edit_category_name = "";
+
 if ($_GET)
 {
 	if(isset($_GET['edit_id']))
@@ -113,7 +116,7 @@ else if($_POST)
 End of POST section
 *******************************************************/
 //build some http strings we'll need later
-if(!$action)
+if(!isSet($action))
 {
 	$action = "Add a new category";
 }
@@ -149,7 +152,7 @@ else
 	echo " <td width=50%>";
 	echo " <form action=setup_categories.php method=post>";
 	echo "	<table width=100% cellpadding=5 cellspacing=1 border=0> ";
-	if($error_msg)
+	if(isSet($error_msg))
 	{
 		echo "<tr><td><b>$error_msg</b></td></tr>";
 	}

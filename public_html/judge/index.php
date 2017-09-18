@@ -1,4 +1,4 @@
-<?
+<?php
 #
 # Copyright (C) 2002 David Whittington
 #
@@ -42,7 +42,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
 </font>
 </td></tr><tr><td bgcolor="#ffffff">
 
-<?
+<?php
     if (isset($state) && $state == 1) {
 	echo "<center><font color=#cc0000><b>";
 	echo "Login or Password Invalid</b></font></center>\n";
@@ -66,7 +66,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
 </form>
 </body>
 </html>
-<?
+<?php
 }
 else if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $user = $_POST['user'];

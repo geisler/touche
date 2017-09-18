@@ -1,4 +1,4 @@
-<?
+<?php
 #
 # Copyright (C) 2002 David Whittington
 # Copyright (C) 2005 Steve Overton

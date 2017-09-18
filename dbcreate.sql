@@ -35,7 +35,7 @@ CREATE TABLE CLARIFICATION_REQUESTS (
   RESPONSE text NOT NULL,
   BROADCAST int(11) NOT NULL default '0',
   PRIMARY KEY  (CLARIFICATION_ID)
-) TYPE=MyISAM;
+);
 # --------------------------------------------------------
 
 #
@@ -54,7 +54,7 @@ CREATE TABLE JUDGED_SUBMISSIONS (
   VIEWED int(11) NOT NULL default '0',
   JUDGED int(10) NOT NULL default '0',
   PRIMARY KEY  (JUDGED_ID)
-) TYPE=MyISAM;
+);
 # --------------------------------------------------------
 
 #
@@ -70,7 +70,7 @@ CREATE TABLE QUEUED_SUBMISSIONS (
   ATTEMPT int(11) NOT NULL default '0',
   SOURCE_FILE char(255) NOT NULL default '',
   PRIMARY KEY  (QUEUE_ID)
-) TYPE=MyISAM;
+);
 # --------------------------------------------------------
 
 #
@@ -83,7 +83,7 @@ CREATE TABLE RESPONSES (
   RESPONSE char(50) NOT NULL default '',
   RESPONSE_COLOR char(255) NOT NULL default '',
   PRIMARY KEY  (RESPONSE_ID)
-) TYPE=MyISAM;
+);
 
 #
 # Set default table data
@@ -111,7 +111,7 @@ CREATE TABLE PROBLEMS (
   PROBLEM_LOC char(20) NOT NULL default '',
   PROBLEM_NOTE char(100) NOT NULL default '',
   PRIMARY KEY  (PROBLEM_ID)
-) TYPE=MyISAM;
+);
 # --------------------------------------------------------
 
 #
@@ -133,7 +133,7 @@ CREATE TABLE TEAMS (
   ALTERNATE_NAME char(30) NOT NULL default '',
   EMAIL char(30) NOT NULL default '',
   PRIMARY KEY  (TEAM_ID)
-) TYPE=MyISAM;
+);
 # --------------------------------------------------------
 
 #
@@ -145,7 +145,7 @@ CREATE TABLE CATEGORY_TEAM (
   TEAM_ID int(11) NOT NULL default '0',
   CATEGORY_ID int(11) NOT NULL default'0',
   PRIMARY KEY  (TEAM_ID,CATEGORY_ID)
-) TYPE=MyISAM;
+);
 # --------------------------------------------------------
 
 #
@@ -157,7 +157,7 @@ CREATE TABLE CATEGORIES (
   CATEGORY_ID int(11) NOT NULL auto_increment,
   CATEGORY_NAME char(30) NOT NULL default '',
   PRIMARY KEY  (CATEGORY_ID)
-) TYPE=MyISAM;
+);
 # --------------------------------------------------------
 
 #
@@ -172,7 +172,7 @@ CREATE TABLE SITE (
   PRIMARY KEY  (SITE_ID),
   START_TS int(11) NOT NULL default '0',
   HAS_STARTED int(11) NOT NULL default '0'
-) TYPE=MyISAM;
+);
 # --------------------------------------------------------
 
 #
@@ -198,7 +198,7 @@ CREATE TABLE CONTEST_CONFIG (
   START_TS int(11) NOT NULL default '0',
   HAS_STARTED int(11) NOT NULL default '0',
   TEAM_SHOW smallint(1) NOT NULL default '0'
-) TYPE=MyISAM;
+);
 # --------------------------------------------------------
 
 #
@@ -214,7 +214,7 @@ CREATE TABLE LANGUAGE (
   REPLACE_HEADERS int(1) NOT NULL default '0',
   CHECK_BAD_WORDS int(1) NOT NULL default '0',
   PRIMARY KEY  (LANGUAGE_ID)
-) TYPE=MyISAM;
+);
 
 #
 # Set default table data
@@ -237,7 +237,7 @@ CREATE TABLE FILE_EXTENSIONS (
   EXT_ID int(11) NOT NULL auto_increment,
   EXT char(10) NOT NULL default '',
   PRIMARY KEY  (EXT_ID)
-) TYPE=MyISAM;
+);
 
 #
 # Set default table data
@@ -259,7 +259,7 @@ CREATE TABLE LANGUAGE_FILE_EXTENSIONS (
   EXT_ID int(11) NOT NULL default '0',
   LANGUAGE_ID int(11) NOT NULL default '0',
   PRIMARY KEY  (EXT_ID,LANGUAGE_ID)
-) TYPE=MyISAM;
+);
 
 #
 # Set default table data
@@ -280,7 +280,7 @@ DROP TABLE IF EXISTS FORBIDDEN_WORDS;
 CREATE TABLE FORBIDDEN_WORDS (
   LANGUAGE_ID int(11) NOT NULL default '0',
   WORD char(15) NOT NULL default ''
-) TYPE=MyISAM;
+);
 
 #
 # Set default table data
@@ -313,7 +313,7 @@ DROP TABLE IF EXISTS HEADERS;
 CREATE TABLE HEADERS (
   LANGUAGE_ID int(11) NOT NULL default '0',
   HEADER char(15) NOT NULL default ''
-) TYPE=MyISAM;
+);
 
 #
 # Set default table data
@@ -368,7 +368,7 @@ INSERT INTO HEADERS VALUES("3","java.math.*");
 #  TS int(11) NOT NULL default '0',
 #  SOURCE_FILE varchar(255) NOT NULL,
 #  PRIMARY KEY  (COMPILE_ID)
-#) TYPE=MyISAM;
+#);
 #------------------------------------------------------------
 #
 #
@@ -385,7 +385,7 @@ INSERT INTO HEADERS VALUES("3","java.math.*");
 #  RESPONSE_ID int(11) NOT NULL default '0',
 #  AUTO_RESPONSE_ID int(11) NOT NULL default '0',
 #  PRIMARY KEY  (COMPILE_ID)
-#) TYPE=MyISAM;
+#);
 
 #
 # Table structure for table AUTO_RESPONSES
@@ -398,4 +398,4 @@ CREATE TABLE AUTO_RESPONSES (
   IN_FILE varchar(255) NOT NULL, 
   AUTO_RESPONSE int(10) NOT NULL default '0',
   ERROR_NO int(10) default NULL
-) TYPE=MyISAM;
+);

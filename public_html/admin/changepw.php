@@ -60,7 +60,7 @@ else if($_SERVER['REQUEST_METHOD'] == 'GET'){
 <small></small>
 </font>
 </td></tr><tr><td bgcolor="#ffffff">
-<?
+<?php
 
     if (isset($state) && $state == 1) {
         echo "<center><font color=#cc0000><b>";
@@ -86,6 +86,6 @@ else if($_SERVER['REQUEST_METHOD'] == 'GET'){
 
 </body>
 </html>
-<?
+<?php
 }
 ?>

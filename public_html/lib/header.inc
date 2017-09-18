@@ -1,4 +1,4 @@
-<?
+<?php
 #
 # Copyright (C) 2002, 2003 David Whittington
 # Copyright (C) 2003 Jonathan Geisler
@@ -47,7 +47,7 @@
 				<a href="readme.php">ReadMe</a></b>
 				</td>
 				<td align="right" bgcolor="#dcdcdc">
-				<?
+				<?php
 				/*
 				 * the following lines find out how far
 				 * away the freezing of the standings is

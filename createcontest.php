@@ -1,6 +1,12 @@
 <?php
 include_once("lib/session.inc");
 include_once("lib/create.inc");
+
+# Why aren't these set anywhere else?
+$host = "";
+$contest_name = "";
+$username = "localhost";
+$password = "";
 ?>
 <html>
 <body bgcolor="<?=$page_bg_color?>" link="0000cc" alink="000066" vlink="0000cc">

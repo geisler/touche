@@ -1,4 +1,4 @@
-<?
+<?php
 #
 # Copyright (C) 2002 David Whittington
 # Copyright (C) 2003, 2004 Jonathan Geisler
@@ -33,7 +33,7 @@ $contest_freeze_ts, $site_start_offset, $contest_end_ts, $num_queued, $num_clari
 <html>
 <head>
 	<title>Judging</title>
-<?
+<?php
 	if($refresh_time != 0)
 	{
 		echo "<meta http-equiv='refresh' content='$refresh_time'>";	
@@ -49,14 +49,14 @@ $contest_freeze_ts, $site_start_offset, $contest_end_ts, $num_queued, $num_clari
                                 <!-- Beautification hack. 2006-09-25 -sb -->
                                 <img src="../images/favicon.ico">
   				<font color="#ffffff">
-				<?
+				<?php
 				if (!$contest_name)
 				{?>
   				<b>No contest exists yet<!-- <?=$contest_name?></b> - <small><?=$contest_host?></small> -->
-				<?}
+				<?php }
 				else { ?>
   				<b><?=$contest_name?></b> - <small><?=$contest_host?></small>
-				<?}?>
+				<?php } ?>
   				</font>
 				</td>
 				<td align="right">
@@ -73,7 +73,7 @@ $contest_freeze_ts, $site_start_offset, $contest_end_ts, $num_queued, $num_clari
 				<a href="problems.php">Problems</a> &nbsp;
 				<a href="clarifications.php">Clarifications</a> &nbsp;
 				<a href="standings.php">Standings</a> &nbsp;
-<?
+<?php
     				    $sql  = "SELECT * ";
 				    $sql .= "FROM CLARIFICATION_REQUESTS ";
 				    $sql .= "WHERE ";
@@ -90,7 +90,7 @@ $contest_freeze_ts, $site_start_offset, $contest_end_ts, $num_queued, $num_clari
 				</td>
 				<td align="right" bgcolor="#dcdcdc">
 				<b>Official Time: <?=date("H:i:s")?></b><br/>
-<?
+<?php
 				$freeze_diff = $contest_freeze_ts + $site_start_offset - time();
 				$time_till_freeze_starts = gmdate('H:i:s', $freeze_diff);
 
@@ -115,6 +115,6 @@ $contest_freeze_ts, $site_start_offset, $contest_end_ts, $num_queued, $num_clari
 			</tr>
 			<tr>
 				<td bgcolor="#ffffff" colspan="2">
-<?
+<?php
 	}
 ?>

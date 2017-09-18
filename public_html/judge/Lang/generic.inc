@@ -1,4 +1,4 @@
-<?
+<?php
 
 function generic_copy() {
 	global $problem_handle;

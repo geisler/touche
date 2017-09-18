@@ -29,19 +29,18 @@ if ($selected_category=="Overall") {
     echo "<a href=\"standings.php?selected_category=Overall\">Overall</a>";
 }
 
-if ($categories) {
-	foreach ($categories as $category) {
-		if ($selected_category == $category['name']) {
-		echo " | $category[name]";
-		}
-		else {
-			echo " | <a href=\"standings.php?selected_category=$category[name]\">";
-		echo "$category[name]</a>";
-		}
+foreach ($categories as $category) {
+	if ($selected_category == $category['name']) {
+	echo " | $category[name]";
+	}
+	else {
+		echo " | <a href=\"standings.php?selected_category=$category[name]\">";
+	echo "$category[name]</a>";
 	}
 }
 echo "</center>\n";
 
+$standings = [];
 if ($selected_category == "Overall") {
     $i=0;
     foreach ($teams as $team) {
@@ -134,11 +133,13 @@ usort($standings, "cmp");
 
 //find the first team that is not exhibition
 $x = 0;
-while(checkexhib($standings[$x]['team_id']) == 1) {
+while($x < count($standings) && checkexhib($standings[$x]['team_id']) == 1) {
 	$standings[$x]['rank'] = '-';
 	$x++;
 }
-$standings[$x]['rank'] = 1;
+if ($x < count($standings)) {
+	$standings[$x]['rank'] = 1;
+}
 $current_rank = 1;
     for($i=$x+1; $i < count($standings); $i++) {
         

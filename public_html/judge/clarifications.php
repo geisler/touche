@@ -1,4 +1,4 @@
-<?
+<?php
 #
 # Copyright (C) 2002 David Whittington
 # Copyright (C) 2003 Jonathan Geisler
@@ -15,7 +15,12 @@
 
 
 judge_header(60);
-$clar_id = $_GET["clar_id"];
+if (isSet($_GET['clar_id'])) {
+	$clar_id = $_GET["clar_id"];
+} else {
+	$clar_id = -2;
+}
+
 if(!isset($_GET['sort']) || $_GET['sort'] == 'time') {
 	$sort = 'time';
 }
@@ -24,9 +29,6 @@ else {
 }
 
 
-if(!isset($clar_id)) {
-    $clar_id = -2;
-}
 echo "<center>\n";
 if ($clar_id == -2) {
     echo "Pending";

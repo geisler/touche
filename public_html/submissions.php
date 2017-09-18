@@ -1,4 +1,4 @@
-<?
+<?php
 #
 # Copyright (C) 2002, 2003 David Whittington
 # Copyright (C) 2005 Jonathan Geisler
@@ -37,13 +37,13 @@
 		<table align="center" width="100%" cellpadding="5" cellspacing="1" border="0">
 			
 			<form method="post" enctype="multipart/form-data" action="submit_solution.php">
-			<tr><td align="center" bgcolor="<?echo "$data_bg_color1"?>" colspan="3">
+			<tr><td align="center" bgcolor="<?php echo "$data_bg_color1" ?>" colspan="3">
 			<table>
 				<tr><td align="right">Source File (C, C++, or Java) &nbsp</td>
 				<td><input type="file" name="source_file"></td></tr>
 				<tr><td align="right">Problem &nbsp</td><td>
 				<select name="problem_id">
-	<?
+	<?php
 	$prob_num = 1;
 	foreach ($problems as $problem) {
 		echo " <option value=\"$problem[id]\">$prob_num - $problem[name]</option>";

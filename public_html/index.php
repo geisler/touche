@@ -1,4 +1,4 @@
-<?
+<?php
 #
 # Copyright (C) 2002 David Whittington
 # Copyright (C) 2005 Steve Overton
@@ -76,7 +76,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
 </form>
 </body>
 </html>
-<?
+<?php
 }
 else if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $user = $_POST['user'];

@@ -1,4 +1,4 @@
-<?
+<?php
 #
 # Copyright (C) 2002, 2003 David Whittington
 # Copyright (C) 2003, 2005, 2013 Jonathan Geisler
@@ -80,6 +80,7 @@ if (!$teams_query) {
     exit;
 }
 $num_teams = mysql_num_rows($teams_query);
+$teams = [];
 while ($row = mysql_fetch_assoc($teams_query)) {
     $team_id = $row['TEAM_ID'];
     $team_user = $row['USERNAME'];
@@ -107,6 +108,7 @@ if (!$categories_query) {
     print "Sorry.  Database request (CATEGORIES) failed.  Retrying...";
     exit;
 }
+$categories = [];
 while ($row = mysql_fetch_assoc($categories_query)) {
     $cat_name = $row['CATEGORY_NAME'];
     if ($cat_name) {
@@ -125,6 +127,7 @@ if (!$problems_query) {
     print "Sorry.  Database request (PROBLEMS) failed.  Retrying...";
     exit;
 }
+$problems = [];
 $num_problems = mysql_num_rows($problems_query);
 while ($row = mysql_fetch_assoc($problems_query)) {
     $problem_id = $row['PROBLEM_ID'];

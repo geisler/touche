@@ -1,7 +1,7 @@
-<?
+<?php
 include_once("generic.inc");
 
-function CXX_init($problem_handle) {
+function CXX_init(&$problem_handle) {
 	$problem_handle['preprocess'] = "cxx_preprocess";
 	$problem_handle['compile'] = "cxx_compile";
 	$problem_handle['execute'] = "generic_execute";

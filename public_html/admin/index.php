@@ -1,4 +1,4 @@
-<?
+<?php
 #
 # Copyright (C) 2002 David Whittington
 #
@@ -33,7 +33,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	exit(0);
     }
 }
-
 else if($_SERVER['REQUEST_METHOD'] == 'GET'){
 
 ?>
@@ -61,7 +60,7 @@ else if($_SERVER['REQUEST_METHOD'] == 'GET'){
 <small><?=$contest_host?></small>
 </font>
 </td></tr><tr><td bgcolor="#ffffff">
-<?
+<?php
 
     if (isset($state) && $state == 1) {
 	echo "<center><font color=#cc0000><b>";

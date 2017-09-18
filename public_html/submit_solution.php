@@ -1,4 +1,4 @@
-<?
+<?php
 #
 # Copyright (C) 2002 David Whittington
 # Copyright (C) 2004 Jonathan Geisler
@@ -18,7 +18,7 @@
 	mysql_select_db ($db_name) or die ("Could not select database");
 
 	// check to see if a file is actually being submitted
-	if ($_FILES[source_file][size] == 0) {
+	if ($_FILES['source_file']['size'] == 0) {
 		header("location: submissions.php?state=1");
 		exit(0);
 	}

@@ -1,4 +1,4 @@
-<?
+<?php
 #
 # Copyright (C) 2002 David Whittington
 # Copyright (C) 2003, 2004 Jonathan Geisler
@@ -41,13 +41,13 @@ if (!$connect_good) {
                 <img src="../images/favicon.ico">
 
   				<font color="#ffffff">
-				<?if (!$contest_name)
-				{?>
+				<?php if (!$contest_name)
+				{ ?>
   				<b>No contest exists yet<!-- <?=$contest_name?></b> - <small><?=$contest_host?></small> -->
-				<?}
+				<?php }
 				else { ?>
   				<b><?=$contest_name?></b> - <small><?=$contest_host?></small>
-				<?}?>
+				<?php } ?>
   				</font>
 				</td>
 				<td align="right">
@@ -65,7 +65,7 @@ if (!$connect_good) {
   				<a href="setup_teams.php">Teams</a> &nbsp;  
   				<a href="setup_categories.php">Categories</a> &nbsp;
 				<a href="setup_team_category.php">Team Category</a> &nbsp;
-				<?$lang_sql = "SELECT 	sum(REPLACE_HEADERS) AS heads,";
+				<?php $lang_sql = "SELECT 	sum(REPLACE_HEADERS) AS heads,";
 				$lang_sql  .= "		sum(CHECK_BAD_WORDS) AS bad_words ";
 				$lang_sql  .= "FROM LANGUAGE";
 				$sel_sql = mysql_query($lang_sql);
@@ -77,10 +77,10 @@ if (!$connect_good) {
 				$contest_stuff = mysql_fetch_assoc($sel_sql);
 				if ($contest_stuff['heads'] > 0) { ?>
 				<a href="setup_headers.php">Headers</a> &nbsp;
-				<?}
+				<?php }
 				if ($contest_stuff['bad_words'] > 0) { ?>
 				<a href="setup_forbidden.php">Forbidden</a> &nbsp;
-				<?} ?>
+				<?php } ?>
 				<a href="misc.php">Misc</a> &nbsp;
 				</b>
 				

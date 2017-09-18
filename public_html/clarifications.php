@@ -1,4 +1,4 @@
-<?
+<?php
 #
 # Copyright (C) 2002, 2003 David Whittington
 # Copyright (C) 2005 Jonathan Geisler
@@ -14,7 +14,7 @@
 	include_once("lib/data.inc");
 
 $problem_id = $_GET['problem_id'];
-$success = $_GET['success'];
+$success = isSet($_GET['success']) ? $_GET['success'] : null;
 if (!$problem_id) {
 	$problem_id = 0;
 }
@@ -57,7 +57,7 @@ if($contest_disabled == false){
 else{
     echo "<br><center><b>Request Clarification</b><br>The contest is not currently active</center><br>\n";
 }
-if(isset($success) && $success == true) { 
+if(isset($success) && $success == true) {
     echo "<center><font color=#00ff00><b>";
     echo "Clarification Request Successfully Submitted";
     echo "</b></font><center>";

@@ -115,6 +115,10 @@
 
 	$result = mysql_query($sql);
 
+	foreach ($problems as $prob_id => $prob_data) {
+	    $standings[$i]['problems'][$prob_id]['penalty'] = 0;
+	}
+
 	while($row = mysql_fetch_assoc($result)) {
 	    if($row['RESPONSE_ID'] == 9) {
 		// each incorrect submission counts as 20 penalty points
@@ -124,7 +128,7 @@
 		$standings[$i]['problems'][$row['PROBLEM_ID']]['ts'] = $row['TS'];
 		$standings[$i]['problems'][$row['PROBLEM_ID']]['penalty'] = $time_penalty + $incorrect_submission_penalty;
 		$standings[$i]['problems_completed']++;
-	    } 
+	    }
 	    $standings[$i]['problems'][$row['PROBLEM_ID']]['attempt'] = $row['ATTEMPT'];
 	    $standings[$i]['problems'][$row['PROBLEM_ID']]['response_id'] = $row['RESPONSE_ID'];
 	}
@@ -240,7 +244,7 @@
 	for($j=$min; $j<($min + $num_problems); $j++) { // change this later
 	    echo "<td align=center>\n";
 	    echo "<font face=arial size=3>\n";
-	    if(isset($standings[$i]['problems'][$j]['penalty'])) {
+	    if(isset($standings[$i]['problems'][$j]['ts'])) {
 		echo gmdate("H:i", $standings[$i]['problems'][$j]['ts'] - $site_start_ts);
 	    } else {
 		echo "--";
