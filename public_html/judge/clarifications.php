@@ -50,7 +50,7 @@ else {
     echo " | <a href='clarifications.php?clar_id=-1&sort=$sort'>General</a>";
 }
 foreach ($problems as $problem) {
-	if ($problem[id] == $clar_id) {
+	if ($problem['id'] == $clar_id) {
 		echo " | $problem[name]";
 	} else {
 		echo " | <a href=clarifications.php?clar_id=$problem[id]&sort=$sort>$problem[name]</a>";

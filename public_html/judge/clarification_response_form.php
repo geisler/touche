@@ -12,7 +12,7 @@
 	include_once("lib/header.inc");
 
 	$clarification_id = $_GET['clarification_id'];
-	$ignore_clarification = $_GET['ignore'];
+	$ignore_clarification = isSet($_GET['ignore']) ? $_GET['ignore'] : "n";
 
 	//if the clarification_id = 0, then the judge is making a clarification without one being submitted
 	if($clarification_id > 0)
