@@ -29,7 +29,7 @@ if ($_POST) {
         $freeze_delay = ($freeze_hour + $ext_hour)*3600 + ($freeze_minute + $ext_minute)*60 + ($freeze_second + $ext_second);
         $contest_delay =($end_hour + $ext_hour)*3600 + ($end_minute + $ext_minute)*60 + ($end_second + $ext_second);
 
-if($_POST['B1']) {
+if(isSet($_POST['B1'])) {
 	$exist = $ext_hour + $ext_minute + $ext_second;
 	if($exist > 0) {
 		$sql = "UPDATE CONTEST_CONFIG ";
@@ -45,7 +45,7 @@ if($_POST['B1']) {
 		}
     	}
 }
-elseif($_POST['B2']) {
+elseif(isSet($_POST['B2'])) {
 #$delete = mysql_query("UPDATE CONTEST_CONFIG SET FREEZE_DELAY = '0', CONTEST_END_DELAY = '0', START_TS = '0', HAS_STARTED = '0' WHERE CONTEST_NAME = '$contest_name'");
 $delete = mysql_query("UPDATE CONTEST_CONFIG SET START_TS = '0', HAS_STARTED = '0' WHERE CONTEST_NAME = '$contest_name'");
 if(!$delete) {
@@ -70,7 +70,7 @@ if(!$delete) {
    echo "Contest Cleared Successfully!";
   }
 }
-elseif($_POST['B3']) {
+elseif(isSet($_POST['B3'])) {
 #Clone the contest here
 $contest_clone_name = $_POST['clone_name'];
 $db_clone_name = preg_replace("/ /", "_", $contest_clone_name);
@@ -145,6 +145,18 @@ echo "<p>Making Directories . . . ";
    $cmd2 = "mkdir -p ";
    $cmd2 .= $contest_dir;
    $cmd2 .= "/java_jail/home/contest/";
+   $cmd2 .= $contest_clone_es;
+   $cmd2 .= "/data";
+   system($cmd2, $result);
+   $cmd2 = "mkdir -p ";
+   $cmd2 .= $contest_dir;
+   $cmd2 .= "/python_jail/home/contest/";
+   $cmd2 .= $contest_clone_es;
+   $cmd2 .= "/judged";
+   system($cmd2, $result);
+   $cmd2 = "mkdir -p ";
+   $cmd2 .= $contest_dir;
+   $cmd2 .= "/python_jail/home/contest/";
    $cmd2 .= $contest_clone_es;
    $cmd2 .= "/data";
    system($cmd2, $result);
