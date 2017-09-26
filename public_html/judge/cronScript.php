@@ -238,7 +238,8 @@ while($submits = mysql_fetch_assoc($submits_result)) {
 								$chroot_directory . " " .
 								$sys_command . " " . 
 								$problem_handle['data_dir'] . $cur_input . " " .
-								$problem_handle['output'];
+								$problem_handle['output'] .
+								"$judged_id-";
 #make use of bash'es built in ulimit capabilities
 							$args = array("-c","ulimit -t $safe_max_cpu_time;$arg_cmd");
 							$envs = array("HOME" => "$base_dir/..");
