@@ -14,8 +14,8 @@
 	include_once("lib/config.inc");
 	include_once("lib/data.inc");
 
-	$state = $_GET['state'];
-	$errors = $_SESSION['compile_errors'];
+	$state = isSet($_GET['state']) ? $_GET['state'] : '0';
+	$errors = isSet($_SESSION['compile_errors']) ? $_SESSION['compile_errors'] : "";
 	unset($_SESSION['compile_errors']);
     if ($state == 1) {
 	    echo "<center><font color=\"#ee0000\">No file selected for submission!</font><br><br></center>\n";
@@ -32,6 +32,10 @@
     if ($state == 5){
         echo "<center><font color=\"#ee0000\">Compile Errors</b></font><br><br></center>\n";
 	$errors = str_replace("\n", "<br />", $errors);
+	echo "<p> $errors </p>";
+    }
+    if ($state == 6) {
+        echo "<center><font color=\"#ee0000\">Forbidden word in source.</b></font><br><br></center>\n";
 	echo "<p> $errors </p>";
     }
 

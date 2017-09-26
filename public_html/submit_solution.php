@@ -78,15 +78,15 @@
 	
 
 	$extension="";
-	for ($i=strlen($_FILES[source_file][name])-1; $i>=0; $i--) {
-		if ($_FILES[source_file][name][$i]==".") {
+	for ($i=strlen($_FILES['source_file']['name'])-1; $i>=0; $i--) {
+		if ($_FILES['source_file']['name'][$i]==".") {
 			break;
 		}
-		$extension = $_FILES[source_file][name][$i].$extension;
+		$extension = $_FILES['source_file']['name'][$i].$extension;
 	}
 
 	$queue_file_name = "$team_id-$problem_id-$ts.$extension";
-    move_uploaded_file($_FILES[source_file][tmp_name],
+    move_uploaded_file($_FILES['source_file']['tmp_name'],
 		       "$base_dir/queue/$queue_file_name");
     chmod("$base_dir/queue/$queue_file_name", 0644);
 

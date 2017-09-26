@@ -68,6 +68,7 @@ CREATE TABLE QUEUED_SUBMISSIONS (
   TS int(11) NOT NULL default '0',
   ATTEMPT int(11) NOT NULL default '0',
   SOURCE_FILE char(255) NOT NULL default '',
+  TEST_COMPILE smallint(1) NOT NULL default '0',
   PRIMARY KEY  (QUEUE_ID)
 ) TYPE=MyISAM;
 # --------------------------------------------------------
