@@ -92,7 +92,12 @@ while ($row = mysql_fetch_assoc($result)) {
     echo "<tr>\n";
     if ($row['TEAM_ID'] != -1) {
         echo "<td align=center bgcolor=$data_bg_color1>";
-        echo $teams[$row['TEAM_ID']]['name'] . "</td>\n";
+	if (isSet($teams[$row['TEAM_ID']]['name'])) {
+            echo $teams[$row['TEAM_ID']]['name'];
+	} else {
+	    echo "Judge";
+	}
+	echo "</td>\n";
     }
     else {
         echo "<td align=center bgcolor=$data_bg_color1>Judge</td>\n";

@@ -91,12 +91,13 @@
 	}
 
 	if($clarification_id == 0) {
+		echo "<option value=1>Respond to All</option>\n";
+
+//WORK ON THIS BUG?
                 $sql = "SELECT * FROM TEAMS ORDER BY TEAM_ID";
                 $result = mysql_query($sql);
                 $numrows = mysql_num_rows($result);
-		echo "<option value=".($numrows+1).">Respond to All</option>\n";
-
-//WORK ON THIS BUG
+//		echo "<option value=".($numrows+1).">Respond to All</option>\n";
 //                $row = mysql_fetch_assoc($result);
 //		for($x = 0; $x < $numrows; $x++) {
 //			echo "<option value='".$x."'>".($x+1)." - ".$row['TEAM_NAME']."</option>\n";

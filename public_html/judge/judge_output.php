@@ -1,4 +1,4 @@
-<?
+<?php
 #
 # Copyright (C) 2005 Steve Overton
 #
@@ -47,7 +47,7 @@
 	    <center><b><font color="<?=$hd_txt_color1?>">
 	    Comparing Output Files for Problem <?=$_GET['problem']?>
 	    </font></center></td></tr>
-	    <?
+	    <?php
 	    $format = $_GET['format'];
 	    
 	    if($format == 2 || $format == 3) {
@@ -56,7 +56,7 @@
                 <font color="<?=$hd_txt_color2?>">Submitted Source 
                 </font></b></center></td></tr>
                 <tr><td bgcolor="<?=$data_bg_color1?>">
-                <?
+                <?php
 		if($format == 2) {
 		    $dir = $base_dir . "/judged/" . $_GET['sub_source'];
 		}
@@ -82,7 +82,7 @@
 		<font color="<?=$hd_txt_color2?>">Submitted Output
 		</font></b></center></td></tr>
 		<tr><td bgcolor="<?=$data_bg_color1?>">
-		<?
+		<?php
 		$dir = $base_dir . "/data/" . $_GET['judge_source'];
                     $out = file($dir);
                     $dir = $base_dir . "/judged/" . $_GET['sub_source'];
