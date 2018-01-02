@@ -12,7 +12,7 @@
 
 // for chroot()
 #define _DEFAULT_SOURCE
-// for setresuid() and setresgid()
+// for setresuid() and setresgid(), and asprintf()
 #define _GNU_SOURCE
 
 #include <sys/types.h>
@@ -46,7 +46,7 @@ void check_argc(int argc) {
 		printf("Got %d, expected 6 arguments\n", argc);
 		printf("Usage\n");
 		printf("chroot_wrapper OPTIONS PATH COMMAND INPUT OUTPUT\n\n");
-		printf("OPTIONS - 0 if not using /proc filesystem, 1 if you are using it\n");
+		printf("OPTIONS - 0 if not using a filesystem, 1 if you are using /proc, 2 if you are using /dev/urandom\n");
 		printf("PATH - the path for the new chroot\n");
 		printf("COMMAND - the command to execute within the new chroot");
 		printf(" (local to the new chroot)\n");
@@ -119,9 +119,9 @@ void both_logs(const char *format, ...) {
 	va_end(parent_args);
 }
 
-int determine_proc_usage(const char *proc_arg) {
-	int rc = proc_arg[0] - '0';
-	both_logs("Proc: %d\n", rc);
+int determine_options(const char *options_arg) {
+	int rc = options_arg[0] - '0';
+	both_logs("Options: %d\n", rc);
 
 	return rc;
 }
@@ -135,21 +135,20 @@ void check_path_length(const char *path) {
 	}
 }
 
-char *allocate_mountpoint(const char *path) {
-	char* mountpoint = (char*)malloc(strlen(path)+6);
-	if(!mountpoint)
-	{
-		both_logs("The malloc call failed, this is a fatal error, exiting....\n");
-		exit(-1);
-	}
-
-	return mountpoint;
-}
-
 void mount_proc(const char *mountpoint) {
-	int result = mount("/proc", mountpoint, "proc", 0x0, NULL);
+	int result = mount("/proc", mountpoint, "proc", MS_BIND, NULL);
 	if(result == -1){
 		char* msg = (char*)strerror(errno);
+		both_logs("An error has occured during the mount call:\
+						%d\n%s\n", errno, msg);
+		exit(-1);
+	}
+}
+
+void mount_urandom(const char *mountpoint) {
+	int result = mount("/dev/urandom", mountpoint, "devtmpfs", MS_BIND, NULL);
+	if (result == -1) {
+		char *msg = (char *)strerror(errno);
 		both_logs("An error has occured during the mount call:\
 						%d\n%s\n", errno, msg);
 		exit(-1);
@@ -239,12 +238,26 @@ char *create_command_copy(const char *command) {
 
 char *setup_proc(const char *path) {
 	check_path_length(path);
-	char *mountpoint = allocate_mountpoint(path);
 
-	strcpy(mountpoint, path);
-	strcat(mountpoint, "/proc");
-
+	char *mountpoint = NULL;
+	if (asprintf(&mountpoint, "%s/proc", path) == -1) {
+		both_logs("The asprintf() call failed, this is a fatal error, exiting....\n");
+		exit(-1);
+	}
 	mount_proc(mountpoint);
+
+	return mountpoint;
+}
+
+char *setup_urandom(const char *path) {
+	check_path_length(path);
+
+	char *mountpoint = NULL;
+	if (asprintf(&mountpoint, "%s/dev/urandom", path) == -1) {
+		both_logs("The asprintf() call failed, this is a fatal error, exiting....\n");
+		exit(-1);
+	}
+	mount_urandom(mountpoint);
 
 	return mountpoint;
 }
@@ -315,7 +328,21 @@ int main(int argc, char** argv) {
 
 	both_logs("Running command: %s\n", argv[3]);
 
-	char *mountpoint = determine_proc_usage(argv[1]) ? setup_proc(argv[2]) : NULL;
+	char *mountpoint = NULL;
+
+	switch (determine_options(argv[1])) {
+	    case 0:
+	    default:
+		break;
+
+	    case 1:
+		mountpoint = setup_proc(argv[2]);
+		break;
+
+	    case 2:
+		mountpoint = setup_urandom(argv[2]);
+		break;
+	}
 
 	pid_t pid;
 	if ((pid=fork()) == 0) {

@@ -22,7 +22,7 @@ function python_copy() {
 	$tmp_cmd = "cp ";
 	$tmp_cmd .= $problem_handle['judged_dir'];
 	$tmp_cmd .= $problem_handle['file_name'];
-	$tmp_cmd .= ".py ";
+	$tmp_cmd .= ".py2 ";
 	$tmp_cmd .= $chroot_directory;
 	$tmp_cmd .= $problem_handle['judged_dir'];
 	$tmp_cmd .= $problem_handle['file_name'];
