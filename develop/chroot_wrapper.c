@@ -4,7 +4,7 @@
 /*
    Usage
 
-   chroot_wrapper OPTIONS PATH COMMAND INPUT OUTPUT
+   chroot_wrapper OPTIONS PATH COMMAND INPUT OUTPUT LOG_ID
 
    PATH - the path for the new chroot
    COMMAND - the command to execute within the new chroot (local to the new chroot)
@@ -43,9 +43,9 @@ FILE* pErrFileP;
 void check_argc(int argc) {
 	if(argc != 7) {
 		printf("Not right number of arguments\n");
-		printf("Got %d, expected 6 arguments\n", argc);
+		printf("Got %d, expected 6 arguments\n", argc - 1);
 		printf("Usage\n");
-		printf("chroot_wrapper OPTIONS PATH COMMAND INPUT OUTPUT\n\n");
+		printf("chroot_wrapper OPTIONS PATH COMMAND INPUT OUTPUT LOG_ID\n\n");
 		printf("OPTIONS - 0 if not using a filesystem, 1 if you are using /proc, 2 if you are using /dev/urandom\n");
 		printf("PATH - the path for the new chroot\n");
 		printf("COMMAND - the command to execute within the new chroot");
