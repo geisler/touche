@@ -205,6 +205,10 @@ while($submits = mysql_fetch_assoc($submits_result)) {
 				$cur_input = $tmp[0];
 				$problem_name = $tmp[1];
 				echo "\ncur_input: $cur_input\n";
+
+				$filesize = get_file_size($cur_input, $problem_handle['data_dir']) * 10;
+				echo "filesize: $filesize\n";
+
 				$auto_response_number = ENONE;
 			//      the program now runs through all data sets regardless of results
 			//	if($auto_response_number == ENONE 
@@ -239,7 +243,9 @@ while($submits = mysql_fetch_assoc($submits_result)) {
 								$sys_command . " " . 
 								$problem_handle['data_dir'] . $cur_input . " " .
 								$problem_handle['output'] . " " .
-								"$judged_id-";
+								"$judged_id-" . " " .
+								"$filesize";
+#								"1000000";
 #make use of bash'es built in ulimit capabilities
 							$args = array("-c","ulimit -t $safe_max_cpu_time;$arg_cmd");
 							$envs = array("HOME" => "$base_dir/..");
@@ -337,12 +343,18 @@ while($submits = mysql_fetch_assoc($submits_result)) {
 						$run_time_errorno = 2000;
 					}
 
-					if($run_time_errorno && $auto_response_number != ERUNLENGTH) {
+					if ($run_time_errorno && $auto_response_number != ERUNLENGTH) {
 						$submission_output = read_entire_file(
 						$problem_handle['judged_dir'] . 
 						$problem_handle['file_name'] . 
 								"_" . $problem_name . ".out");
-						$auto_response_number = ERUNTIME;
+						#if ($run_time_errorno == 1025) {
+						if ($run_time_errorno == 25 + 128) {
+							echo "Too much output!";
+							$auto_response_number = EMAXOUTPUT;
+						} else {
+							$auto_response_number = ERUNTIME;
+						}
 					}
 					elseif (!pcntl_waitpid($pid, $child_status, WNOHANG)){
 						posix_kill($pid+1, SIGKILL);
@@ -407,7 +419,7 @@ while($submits = mysql_fetch_assoc($submits_result)) {
 						system("diff -u $judge_out_file $team_out_file > $diff_out_file", $result);
 						echo "\n\nsys 409: ";
 						echo "diff -u $judge_out_file $team_out_file > $diff_out_file\n\n\n";
-					  	if($auto_response_number != ERUNTIME && $auto_response_number != ERUNLENGTH){ 	
+					  	if($auto_response_number != ERUNTIME && $auto_response_number != ERUNLENGTH && $auto_response_number != EMAXOUTPUT){ 	
 							if(filesize($diff_out_file) != 0 || $result != 0){
 							
 								#we need to do a non-white space diff now
@@ -446,8 +458,8 @@ while($submits = mysql_fetch_assoc($submits_result)) {
 
                                                 $sub_source =
                                                         $problem_handle['file_name'] . "_" . $outfile;
-				echo "\nauto_resopnse_number: $auto_response_number\n";	        
-    				if($auto_response_number != ERUNTIME){
+				echo "\nauto_response_number: $auto_response_number\n";	        
+    				if($auto_response_number == ERUNTIME){
 					echo "\nerror: $run_time_errorno\n";
 					update_submission($judged_id,$auto_response_number, $cur_input, $run_time_errorno);
 				}
@@ -539,6 +551,15 @@ function save_file($filename,$file) {
     else{
 		echo "Error: Unable to open the file!";
 	}
+}
+
+function get_file_size($input_file, $directory) {
+	$tmp = explode(".", $input_file);
+	$outfile = $tmp[0] . ".out";
+	$output_file = $directory;
+	$output_file .= $outfile;
+
+	return filesize($output_file);
 }
 
 # Update the judged submission

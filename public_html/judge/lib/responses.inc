@@ -7,6 +7,7 @@ define("ERUNLENGTH",4);
 define("ERUNTIME",5);
 define("EINCORRECT",6);
 define("EFORMAT",7);
-define("EUNKNOWN",8);
-define("ECORRECT",9);
+define("EMAXOUTPUT",8);
+define("EUNKNOWN",9);
+define("ECORRECT",10);
 ?>

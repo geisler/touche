@@ -89,7 +89,7 @@ CREATE TABLE RESPONSES (
 # Set default table data
 #
 INSERT INTO RESPONSES VALUES("0","Pending","FFFF00");
-INSERT INTO RESPONSES VALUES("9","Accepted","00FF00");
+INSERT INTO RESPONSES VALUES("10","Accepted","00FF00");
 INSERT INTO RESPONSES VALUES("2","Forbidden Word in Source","FF0000");
 INSERT INTO RESPONSES VALUES("1","Undefined File Type","FF0000");
 INSERT INTO RESPONSES VALUES("3","Compile Error","FF0000");
@@ -97,7 +97,8 @@ INSERT INTO RESPONSES VALUES("4","Exceeds Time Limit","FF0000");
 INSERT INTO RESPONSES VALUES("6","Incorrect Output","FF0000");
 INSERT INTO RESPONSES VALUES("7","Format Error","FF0000");
 INSERT INTO RESPONSES VALUES("5","Runtime Error","FF0000");
-INSERT INTO RESPONSES VALUES("8","Error (Reason Unknown)","FF0000");
+INSERT INTO RESPONSES VALUES("8","Exceeds Output Limit","FF0000");
+INSERT INTO RESPONSES VALUES("9","Error (Reason Unknown)","FF0000");
 # --------------------------------------------------------
 
 #
