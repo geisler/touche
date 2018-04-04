@@ -43,7 +43,7 @@
   				<a href="submissions.php?state=0">Submissions</a> &nbsp;  
   				<a href="standings.php">Standings</a> &nbsp;  
   				<a href="clarifications.php?problem_id=-1">Clarifications</a> &nbsp;
-  				<!--<a href="testcompile.php">-->Test Compile (N/A)<!--</a>--> &nbsp;
+  				<a href="testcompile.php">Test Compile</a> &nbsp;
 				<a href="readme.php">ReadMe</a></b>
 				</td>
 				<td align="right" bgcolor="#dcdcdc">

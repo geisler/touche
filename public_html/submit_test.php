@@ -98,7 +98,7 @@
                 	array_push($headers, $row[0]);
                 }
                 $problem_handle['preprocess']($headers);
-                save_file($temp_store, $problem_handle['judged_source']);
+                save_file($temp_file, $problem_handle['judged_source']);
 	}
 
         # Check for forbidden words
@@ -120,7 +120,7 @@
 		        {
                                 $auto_response_number = EFORBIDDEN;
                       		$submission_output .= "Found word: <b>$row[0]</b>    ";
-                                $submission_output .= "($context[1]) <br />\n";
+                                $submission_output .= "<pre>$context[1]</pre><br />\n";
                         }
 		    }
 
