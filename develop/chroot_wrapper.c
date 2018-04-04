@@ -32,7 +32,7 @@
 // Ideally, all the "configurables" (uid, gid, judge home) will be parameterized. -sb
 const int JUDGE_UID = 5001;
 const int JUDGE_GID = 100;
-const char *JUDGE_HOME = "/home/contest/TU-2018-practice/logs/";
+const char *JUDGE_HOME = "/home/contest/develop/logs/";
 
 const int MAX_ARGS = 10;
 
