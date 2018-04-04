@@ -32,7 +32,7 @@
 // Ideally, all the "configurables" (uid, gid, judge home) will be parameterized. -sb
 const int JUDGE_UID = 5001;
 const int JUDGE_GID = 100;
-const char *JUDGE_HOME = "/home/contest/develop/logs/";
+const char *JUDGE_HOME = "/home/contest/TU-2018-practice/logs/";
 
 const int MAX_OUTPUT_SIZE = 1000000;
 const int MAX_ARGS = 10;
@@ -43,16 +43,16 @@ FILE* pErrFileP;
 void check_argc(int argc) {
 	if(argc != 7) {
 		printf("Not right number of arguments\n");
-		printf("Got %d, expected 6 arguments\n", argc);
+		printf("Got %d, expected 7 arguments\n", argc);
 		printf("Usage\n");
-		printf("chroot_wrapper OPTIONS PATH COMMAND INPUT OUTPUT\n\n");
+		printf("chroot_wrapper OPTIONS PATH COMMAND INPUT OUTPUT LOG_ID\n\n");
 		printf("OPTIONS - 0 if not using a filesystem, 1 if you are using /proc, 2 if you are using /dev/urandom\n");
 		printf("PATH - the path for the new chroot\n");
 		printf("COMMAND - the command to execute within the new chroot");
 		printf(" (local to the new chroot)\n");
 		printf("INPUT - the inputfile (stdin will be redirected from here)\n");
 		printf("OUTPUT - the output file (stdout will be redirected here)\n");
-		printf("LOG ID - the unique identifier for the log file\n");
+		printf("LOG_ID - the unique identifier for the log file\n");
 
 		exit(0);
 	}
