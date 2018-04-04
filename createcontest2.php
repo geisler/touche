@@ -209,7 +209,7 @@ fclose($fhdl);
 $fhdl = fopen("../$contest_noesc/chroot_wrapper.c", "w") OR die("Error with opening file");
 $chk = fwrite($fhdl, $file);
 fclose($fhdl);
-$cmd5 = "gcc -o ../$contest_noesc/chroot_wrapper.exe ../$contest_noesc/chroot_wrapper.c";
+$cmd5 = "gcc -std=c11 -o ../$contest_noesc/chroot_wrapper.exe ../$contest_noesc/chroot_wrapper.c";
 system($cmd5, $result);
 if($result) {
 echo "Something happened<br>";
