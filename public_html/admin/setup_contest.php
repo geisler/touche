@@ -64,11 +64,17 @@ if ($_POST)
 	else {
 		$forbidden_java = 0;
 	}
-	if (isset($_POST['forbidden_python'])) {
-		$forbidden_python = 1;
+	if (isset($_POST['forbidden_python3'])) {
+		$forbidden_python3 = 1;
 	}
 	else {
-		$forbidden_python = 0;
+		$forbidden_python3 = 0;
+	}
+	if (isset($_POST['forbidden_python2'])) {
+		$forbidden_python2 = 1;
+	}
+	else {
+		$forbidden_python2 = 0;
 	}
 	if (isset($_POST['headers_c'])) {
 		$headers_c = 1;
@@ -88,11 +94,17 @@ if ($_POST)
 	else {
 		$headers_java = 0;
 	}
-	if (isset($_POST['headers_python'])) {
-		$headers_python = 1;
+	if (isset($_POST['headers_python3'])) {
+		$headers_python3 = 1;
 	}
 	else {
-		$headers_python = 0;
+		$headers_python3 = 0;
+	}
+	if (isset($_POST['headers_python2'])) {
+		$headers_python2 = 1;
+	}
+	else {
+		$headers_python2 = 0;
 	}
 	$num_problems = $_POST['num_problems'];
 	
@@ -171,13 +183,23 @@ if ($_POST)
 	$sql.= "	     '$base_directory', '$ignore_stderr', '$username', '$password', '$show_team_names', '$save_ts', '$save_hs') ";
 	$success = mysql_query($sql);
 	if ($success) {
-		if ($forbidden_c == 1 || $forbidden_cpp == 1 || $forbidden_java == 1 || $forbidden_python == 1) {
+		if (   $forbidden_c == 1
+		    || $forbidden_cpp == 1
+		    || $forbidden_java == 1
+		    || $forbidden_python3 == 1
+		    || $forbidden_python2 == 1 )
+		{
 			$forbidden = true;
 		}
 		else {
 			$forbidden = false;
 		}
-		if ($headers_c == 1 || $headers_cpp == 1 || $headers_java == 1 || $headers_python == 1) {
+		if (   $headers_c == 1
+		    || $headers_cpp == 1
+		    || $headers_java == 1
+		    || $headers_python3 == 1
+		    || $headers_python2 == 1 )
+		{
 			$headers = true;
 		}
 		else {
@@ -193,14 +215,22 @@ if ($_POST)
 		$insert_sql_java = "UPDATE LANGUAGE SET REPLACE_HEADERS = '$headers_java',";
 		$insert_sql_java.= "			CHECK_BAD_WORDS = '$forbidden_java' ";
 		$insert_sql_java.= "WHERE LANGUAGE_NAME = 'JAVA'";
-		$insert_sql_python = "UPDATE LANGUAGE SET REPLACE_HEADERS = '$headers_python',";
-		$insert_sql_python.= "                    CHECK_BAD_WORDS = '$forbidden_python' ";
-		$insert_sql_python.= "WHERE LANGUAGE_NAME = 'Python'";
+		$insert_sql_python3 = "UPDATE LANGUAGE SET REPLACE_HEADERS = '$headers_python3',";
+		$insert_sql_python3.= "                    CHECK_BAD_WORDS = '$forbidden_python3' ";
+		$insert_sql_python3.= "WHERE LANGUAGE_NAME = 'Python3'";
+		$insert_sql_python2 = "UPDATE LANGUAGE SET REPLACE_HEADERS = '$headers_python2',";
+		$insert_sql_python2.= "                    CHECK_BAD_WORDS = '$forbidden_python2' ";
+		$insert_sql_python2.= "WHERE LANGUAGE_NAME = 'Python2'";
 		$insert_c_success = mysql_query($insert_sql_c);
 		$insert_cpp_success = mysql_query($insert_sql_cpp);
 		$insert_java_success= mysql_query($insert_sql_java);
-		$insert_python_success = mysql_query($insert_sql_python);
-		if (!$insert_c_success || !$insert_cpp_success || !$insert_java_success || !$insert_python_success) {
+		$insert_python3_success = mysql_query($insert_sql_python3);
+		$insert_python2_success = mysql_query($insert_sql_python2);
+		if (   !$insert_c_success
+		    || !$insert_cpp_success
+		    || !$insert_java_success
+		    || !$insert_python3_success
+		    || !$insert_python2_success ) {
 			echo "Error!  Couldn't update the language sets<br />";
 			echo "Please contact an administrator.";
 		}
@@ -327,14 +357,24 @@ End of POST section
 					$forbidden_java_checked = "checked";
 				}
 			}
-			elseif ($lang_row['LANGUAGE_NAME'] == "Python") {
-				$headers_python_checked = $lang_row['REPLACE_HEADERS'];
-				$forbidden_python_checked = $lang_row['CHECK_BAD_WORDS'];
-				if ($headers_python_checked) {
-					$headers_python_checked = "checked";
+			elseif ($lang_row['LANGUAGE_NAME'] == "Python3") {
+				$headers_python3_checked = $lang_row['REPLACE_HEADERS'];
+				$forbidden_python3_checked = $lang_row['CHECK_BAD_WORDS'];
+				if ($headers_python3_checked) {
+					$headers_python3_checked = "checked";
 				}
-				if ($forbidden_python_checked) {
-					$forbidden_python_checked = "checked";
+				if ($forbidden_python3_checked) {
+					$forbidden_python3_checked = "checked";
+				}
+			}
+			elseif ($lang_row['LANGUAGE_NAME'] == "Python2") {
+				$headers_python2_checked = $lang_row['REPLACE_HEADERS'];
+				$forbidden_python2_checked = $lang_row['CHECK_BAD_WORDS'];
+				if ($headers_python2_checked) {
+					$headers_python2_checked = "checked";
+				}
+				if ($forbidden_python2_checked) {
+					$forbidden_python2_checked = "checked";
 				}
 			}
 		}
@@ -369,11 +409,12 @@ End of POST section
 		$forbidden_c_checked = "";
 		$forbidden_cpp_checked = "";
 		$forbidden_java_checked = "";
-		$forbidden_python_checked = "";
+		$forbidden_python3_checked = "";
+		$forbidden_python2_checked = "";
 		$headers_c_checked = "";
 		$headers_cpp_checked = "";
 		$headers_java_checked = "";
-		$headers_python_checked = "";
+		$headers_python2_checked = "";
 		$num_problems = 8;
 		$username = "judge";
 		$password = "";
@@ -459,8 +500,10 @@ End of POST section
 	echo "			<input type=checkbox name=forbidden_cpp $forbidden_cpp_checked >";
 	echo "				</input> &nbsp Java: &nbsp";
 	echo "			<input type=checkbox name=forbidden_java $forbidden_java_checked >";
-	echo "				</input> &nbsp Python: &nbsp";
-	echo "			<input type=checkbox name=forbidden_python $forbidden_python_checked >";
+	echo "				</input> &nbsp Python 3: &nbsp";
+	echo "			<input type=checkbox name=forbidden_python3 $forbidden_python3_checked >";
+	echo "				</input> &nbsp Python 2: &nbsp";
+	echo "			<input type=checkbox name=forbidden_python2 $forbidden_python2_checked >";
 	echo "				</input></td>";
 	echo "		</tr>";
 	echo "		<tr bgcolor=\"$data_bg_color1\">";
@@ -472,8 +515,10 @@ End of POST section
 	echo "			<input type=checkbox name=headers_cpp $headers_cpp_checked >";
 	echo "				</input> &nbsp Java: &nbsp";
 	echo "			<input type=checkbox name=headers_java $headers_java_checked >";
-	echo "				</input> &nbsp Python: &nbsp";
-	echo "			<input type=checkbox name=headers_python $headers_python_checked >";
+	echo "				</input> &nbsp Python 3: &nbsp";
+	echo "			<input type=checkbox name=headers_python3 $headers_python3_checked >";
+	echo "				</input> &nbsp Python 2: &nbsp";
+	echo "			<input type=checkbox name=headers_python2 $headers_python2_checked >";
 	echo "				</input></td>";
 	echo "		</tr>";
         echo "          <tr bgcolor=\"$data_bg_color1\">";
