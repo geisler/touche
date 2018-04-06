@@ -16,10 +16,10 @@
 #
 judge_header(60);
 
-if (!isset($HTTP_GET_VARS['selected_category'])) {
+if (!isset($_GET['selected_category'])) {
     $selected_category = "Overall";
 } else {
-    $selected_category = $HTTP_GET_VARS['selected_category'];
+    $selected_category = $_GET['selected_category'];
 }
 
 echo "<center>Categories: \n";
