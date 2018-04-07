@@ -81,7 +81,7 @@ for ($i = 0; $i < count($standings); $i++) {
     $result = mysql_query($sql);
 
     while($row = mysql_fetch_assoc($result)) {
-	if($row['RESPONSE_ID'] == 9) {
+	if($row['RESPONSE_ID'] == 10) {
 	    // each incorrect submission counts as 20 penalty points
 	    $incorrect_submission_penalty = ($row['ATTEMPT'] - 1) * 20;
 	    // each minute counts as one penalty point

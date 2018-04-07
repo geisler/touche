@@ -31,7 +31,7 @@
 	
 	// check to see if we already have a successful submission 
 	$sql  = "SELECT * FROM JUDGED_SUBMISSIONS ";
-	$sql .= "WHERE TEAM_ID='$team_id' AND PROBLEM_ID='$problem_id' AND RESPONSE_ID='9' ";
+	$sql .= "WHERE TEAM_ID='$team_id' AND PROBLEM_ID='$problem_id' AND RESPONSE_ID='10' ";
 	$result = mysql_query($sql);
 	echo mysql_error();
 	if (mysql_num_rows($result)>0) {

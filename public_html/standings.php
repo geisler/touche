@@ -111,7 +111,7 @@
 		$sql .= "    TS<'$site_current_time' ";
 	}
 	#also need to make sure it's not more than the current contest
-	$sql .= "ORDER BY PROBLEM_ID ASC ";
+	$sql .= "ORDER BY PROBLEM_ID,ATTEMPT ASC ";
 
 	$result = mysql_query($sql);
 
@@ -120,7 +120,7 @@
 	}
 
 	while($row = mysql_fetch_assoc($result)) {
-	    if($row['RESPONSE_ID'] == 9) {
+	    if($row['RESPONSE_ID'] == 10) {
 		// each incorrect submission counts as 20 penalty points
 		$incorrect_submission_penalty = ($row['ATTEMPT'] - 1) * 20;
 		// each minute counts as one penalty point

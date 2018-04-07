@@ -21,7 +21,7 @@
 	}
 	
 	if ($state == 2) {
-		echo "<center><br><font color=\"#ee0000\">You have alread solved this problem!</font><br></center>\n";
+		echo "<center><br><font color=\"#ee0000\">You have already solved this problem!</font><br></center>\n";
 	}
 	
 	if ($state == 3) {
@@ -92,11 +92,11 @@
 			while($row = mysql_fetch_array($result)) {
 				// --- START HACK ALERT ---
                                 // sb hack - 2007-09-27
-                                // Should be ECORRECT, not 9
+                                // Should be ECORRECT, not 10
                                 // Was the following line.
                                 //if($row['RESPONSE_ID'] == 0) {
 
-                                if($row['RESPONSE_ID'] == 9) {
+                                if($row['RESPONSE_ID'] == 10) {
                                 // --- END HACK ALERT ---
 					$color = "green";
 				}
