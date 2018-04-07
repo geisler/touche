@@ -206,7 +206,10 @@ while($submits = mysql_fetch_assoc($submits_result)) {
 				$problem_name = $tmp[1];
 				echo "\ncur_input: $cur_input\n";
 
-				$filesize = get_file_size($cur_input, $problem_handle['data_dir']) * 10;
+				$filesize = get_file_size($cur_input, $problem_handle['data_dir']);
+				if ($filesize < 1000000) {
+					$filesize = 1000000;
+				}
 				echo "filesize: $filesize\n";
 
 				$auto_response_number = ENONE;
