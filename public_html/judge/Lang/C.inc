@@ -34,6 +34,7 @@ function c_compile() {
     $command .= $problem_handle['file_name'];
     $command .= ".";
     $command .= $problem_handle['file_extension'];
+    $command .= " -O3 ";
     $command .= " -lm -o ";
     $command .= $problem_handle['judged_dir'];
     $command .= $problem_handle['file_name'];

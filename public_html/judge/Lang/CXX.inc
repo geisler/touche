@@ -36,6 +36,7 @@ function cxx_compile() {
     $command .= ".";
     $command .= $problem_handle['file_extension'];
     $command .= " -std=c++14 ";
+    $command .= " -O3 ";
     $command .= " -fno-asm -lm -w -o ";
     $command .= $problem_handle['judged_dir'];
     $command .= $problem_handle['file_name'];
