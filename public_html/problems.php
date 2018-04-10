@@ -23,7 +23,7 @@ echo "<font color=$hd_txt_color1><b>Problems Listing</b></font></td></tr>\n";
 
 #echo "<table width=400 align=center>\n";
 echo "<tr><td bgcolor=$hd_bg_color2>Problem Name</td>";
-echo "<td bgcolor=$hd_bg_color2 align=center>HTML</td>";
+#echo "<td bgcolor=$hd_bg_color2 align=center>HTML</td>";
 #echo "<td bgcolor=$hd_bg_color2 align=center>PS</td>";
 echo "<td bgcolor=$hd_bg_color2 align=center>PDF</td></tr>";
 #echo "<tr><td bgcolor=$data_bg_color1>All problems</td>";
@@ -39,8 +39,8 @@ $problem_counter = 1;
 foreach ($problems as $problem) {
     echo "<tr><td bgcolor=$data_bg_color1>$problem_counter - $problem[name]</td>";
 //    echo "<tr><td bgcolor=$data_bg_color1>$problem[id] - $problem[name]</td>";
-    echo "<td bgcolor=$data_bg_color1 align=center>";
-    echo "<a href='$problem_url/$problem[loc]/$problem[name].html'>HTML</a></td>";
+#    echo "<td bgcolor=$data_bg_color1 align=center>";
+#    echo "<a href='$problem_url/$problem[loc]/$problem[name].html'>HTML</a></td>";
   //  echo "<td bgcolor=$data_bg_color1 align=center>";
   //  echo "<a href='$problem_url/$problem[loc]/problem.ps'>PS</a></td>";
     echo "<td bgcolor=$data_bg_color1 align=center>";
