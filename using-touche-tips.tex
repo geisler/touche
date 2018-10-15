@@ -1,0 +1,129 @@
+\documentclass{article}
+
+\usepackage{listings}
+\usepackage{filemod}
+
+\begin{document}
+	\title{
+		{\LARGE Programming Contest Tips} \\
+		{\large Using Taylor University's Touche server}}
+	\date{}
+	\maketitle{}
+	
+	\section{Submitting}
+	\subsection{How do I submit a problem?}
+	\begin{enumerate}
+		\item Click on ``Submissions"
+		\item Choose the problem you want to respond to from the drop down in the center of the screen
+		\item Choose your source file (.c, .cpp, .java, or .py)
+		\item Click ``Submit Solution"
+	\end{enumerate}
+	
+	\subsection{When do I get to know how I did?}
+	After you submit your file, your submission should have a a status of ``Submitted for judging" or ``Pending."
+	If this is the case, sit tight. We are working on judging your submission. 
+	It should take 1-5 minutes.
+	
+	\section{Requesting a Clarification}
+	In the interest of fairness, we ask that you do not ask the judges questions directly 
+	but instead use the Clarifications page to ask clarification questions you may have. 
+	
+	\subsection{Ask judges these kind of questions}
+	\begin{itemize}
+		\item How do I submit my code?
+		\item The wording on this question is ambiguous. Can you clarify?
+		\item What does a ``Forbidden word" error mean?
+	\end{itemize}
+
+	\subsection{Ask your team these kinds of questions}
+	\begin{itemize}
+		\item What is the syntax for this?
+		\item How do I solve this problem?
+		\item What is causing this error?
+	\end{itemize}
+	
+	\section{Coding in C/C++}
+	\subsection{Sample program}
+	\lstset{language=C}
+	\lstset{breaklines=true}
+	\begin{lstlisting}
+#include <stdio.h>
+
+//adds two numbers
+int main(int argc, char **argv){
+	int one, two;
+	scanf("%d %d", &one, &two);
+	printf("%d\n", one+two);
+}
+	\end{lstlisting}
+
+	\subsection{Things that cannot appear anywhere in your code:}
+	\begin{lstlisting}
+system fstream open __asm__ socket connect accept listen mmap
+	\end{lstlisting}
+
+	\subsection{Headers}
+	The contest software (touche) will remove all of your \#include statements 
+	and replace them with the following. 
+	This means that you cannot reference any headers that do not appear in these lists.
+
+	\subsubsection{C}
+	\begin{lstlisting}
+stdio.h, stdlib.h, string.h, math.h, malloc.h, ctype.h, assert.h, limits.h
+	\end{lstlisting}
+	
+	\subsubsection{C++}
+	\begin{lstlisting}
+cassert, cstdio, cstdlib, cstring, cmath, climits, iostream, sstream, iomanip, string, new, stdexcept, cctype, list, queue, stack, vector, map, iterator, bitset, algorithm, iomanip, set
+	\end{lstlisting}
+	
+	\section{Coding in Java}
+	\subsection{Sample program}
+	\lstset{language=java}
+	\begin{lstlisting}
+import java.util.Scanner;
+
+//cannot read "public class Main"
+class Main{ 
+	//adds two numbers
+	public static void main(String[] args){
+		Scanner reader = new Scanner(System.in); 
+		int one, two;
+		one = reader.nextInt();
+		two = reader.nextInt();
+		System.out.println(one + two);
+	}
+}
+	\end{lstlisting}
+	
+	\subsection{Packages}
+	The contest software (touche) makes these packages avalible for import. 
+	This means that you cannot reference any packages that do not appear in this list.
+
+	\begin{lstlisting}
+java.lang.*
+java.io.*
+java.util.*
+java.math.*
+	\end{lstlisting}
+	
+	\section{Coding Python 2/3}
+	\subsection{Sample program}
+	\lstset{language=Python}
+	\begin{lstlisting}
+# Adds two numbers
+
+line = input()
+one, two = line.split()
+one = int(one)
+two = int(two)
+print(one + two)
+	\end{lstlisting}
+	
+	\subsection{Modules}
+	You may import the following modules in your code:
+	\begin{lstlisting}
+numbers, math, cmath, decimal, fractions, random, itertools, functools, operator
+	\end{lstlisting}
+
+\end{document}
