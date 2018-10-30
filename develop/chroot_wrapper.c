@@ -4,7 +4,7 @@
 /*
    Usage
 
-   chroot_wrapper OPTIONS PATH COMMAND INPUT OUTPUT
+   chroot_wrapper OPTIONS PATH COMMAND INPUT OUTPUT LOG_ID
 
    PATH - the path for the new chroot
    COMMAND - the command to execute within the new chroot (local to the new chroot)

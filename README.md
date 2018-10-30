@@ -9,6 +9,7 @@ files inside.  Here are the links that need to be done (all
 directories are relative to the contest user and assume the repository
 is in a directory named src):
 
+    mkdir public_html
     ln -s ~/src/develop develop
     ln -s ~/src/public_html public_html/develop
     ln ~/src/createcontest.php public_html/createcontest.php
@@ -17,14 +18,14 @@ is in a directory named src):
     ln -s ~/src/dbcreate.sql public_html/dbcreate.sql
     ln -s ~/src/readme public_html/readme
 
-We cannot use symbolic links for the `createcontest` scripts since
-they are directly executed by the web server and we use suexec, which
-doesn't work over links and so it needs to be hard linked.  This
-probably isn't an issue since the two locations are probably on the
-same mount point.  Otherwise, you'll have to use a copy instead.  If
-you use a copy, be sure that any time those scripts are updated that they
-get copied into the web server spot properly and that can be easy to
-forget when using version control since it might not explicitly remind
-to do so.
+suexec and userdir options must be active within Apache. We cannot use 
+symbolic links for the `createcontest` scripts since they are directly 
+executed by the web server and we use suexec, which doesn't work over 
+links and so it needs to be hard linked.  This probably isn't an issue 
+since the two locations are probably on the same mount point.  Otherwise, 
+you'll have to use a copy instead.  If you use a copy, be sure that 
+any time those scripts are updated that they get copied into the web 
+server spot properly and that can be easy to forget when using version 
+control since it might not explicitly remind to do so.
 
 More documents should be created and pointed to with this README!!!
