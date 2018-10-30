@@ -131,6 +131,21 @@ if($_GET){
 			echo "<font color=$data_txt_color4>";
                         echo "File Name: $row[IN_FILE]</font></td></tr></table>\n";
 			break;
+
+		case EMAXOUTPUT:
+			$know_output = preg_replace("/\.in/", ".out", $row['IN_FILE']);
+			echo "<table border=0 width=100% cellpadding=5>\n";
+                        echo "<tr cellpadding=5 bgcolor=$hd_bg_color2>\n";
+                        echo "<td align=center colspan=2>\n";
+                        echo "<font color=$hd_txt_color2>\n";
+                        echo "<b>Data Set: $know_output</b>";
+                        echo "</td></tr></table>\n";
+                        echo "<table border=0 width=100%>\n";
+                        echo "<tr><td bgcolor=$data_bg_color1>";
+			echo "<font color=$data_txt_color4>";
+			echo "Exceeded maximum output length</font></td></tr></table>\n";
+			break;
+
 		case ERUNTIME:
 			$know_output = preg_replace("/\.in/", ".out", $row['IN_FILE']);
 			echo "<table border=0 width=100% cellpadding=5>\n";
@@ -142,7 +157,13 @@ if($_GET){
                         echo "<table border=0 width=100%>\n";
                         echo "<tr><td bgcolor=$data_bg_color1>";
 			echo "<font color=$data_txt_color4>";
-                        echo "Runtime Error Number: $row[ERROR_NO]</font></td></tr></table>\n";
+                        echo "Runtime Error Number: $row[ERROR_NO]</font></td></tr>\n";
+
+			$know_output = preg_replace("/\.in/", ".stderr", $row['IN_FILE']);
+			$source_file = preg_replace("/\.(cc|cpp|c|java|py)/", "", $source_file);	
+			$program_error = $problem_handle['judged_dir'] . $source_file . "_" . $know_output;
+                        echo "<tr><td><textarea rows=15 cols=62 readonly>" . read_entire_file($program_error);
+                        echo "</textarea></td></tr></table>\n";
 			break;
 	
 		case ERUNLENGTH:
@@ -204,7 +225,7 @@ if($_GET){
 						echo "<font color=$data_txt_color4>";
 		        	                echo "<b>Format Error</b>";
 		                	        echo "</font></td></tr>";
-						$auto_response_id = EFORMAT;		
+#						$auto_response_id = EFORMAT;		
 					}
 				}
 			}
