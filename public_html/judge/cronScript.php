@@ -206,7 +206,7 @@ while($submits = mysql_fetch_assoc($submits_result)) {
 				$problem_name = $tmp[1];
 				echo "\ncur_input: $cur_input\n";
 
-				$filesize = get_file_size($cur_input, $problem_handle['data_dir']);
+				$filesize = get_file_size($cur_input, $problem_handle['data_dir']) * 2;
 				if ($filesize < 1000000) {
 					$filesize = 1000000;
 				}
@@ -223,6 +223,7 @@ while($submits = mysql_fetch_assoc($submits_result)) {
 					$problem_handle['output'] .= $problem_handle['file_name'];
 					$problem_handle['output'] .= "_";
 					$problem_handle['output'] .= $problem_name;
+					$problem_handle['err_output'] = $problem_handle['output'] . ".stderr";
 					$problem_handle['output'] .= ".out";
 										
 					$sys_command = $problem_handle['execute']();
@@ -246,7 +247,8 @@ while($submits = mysql_fetch_assoc($submits_result)) {
 								$sys_command . " " . 
 								$problem_handle['data_dir'] . $cur_input . " " .
 								$problem_handle['output'] . " " .
-								"$judged_id-" . " " .
+								$problem_handle['err_output'] . " " .
+								"$judged_id-$cur_input" . " " .
 								"$filesize";
 #								"1000000";
 #make use of bash'es built in ulimit capabilities
@@ -352,7 +354,7 @@ while($submits = mysql_fetch_assoc($submits_result)) {
 						$problem_handle['file_name'] . 
 								"_" . $problem_name . ".out");
 						#if ($run_time_errorno == 1025) {
-						if ($run_time_errorno == 25 + 128) {
+						if ($run_time_errno == 1025 || $run_time_errorno == 25 + 128) {
 							echo "Too much output!";
 							$auto_response_number = EMAXOUTPUT;
 						} else {
@@ -394,6 +396,7 @@ while($submits = mysql_fetch_assoc($submits_result)) {
 						$chroot_filename = $chroot_directory;
 						$chroot_filename .= $problem_handle['judged_dir'];
 						$chroot_filename .= $problem_handle['file_name'];
+						$chroot_stderr = "$chroot_filename_$problem_name.stderr";
 						$chroot_filename .= "_$problem_name.out";
 						$tmp_cmd = "cp -f $chroot_filename";
 						$tmp_cmd .= " ";
@@ -407,6 +410,14 @@ while($submits = mysql_fetch_assoc($submits_result)) {
 						chmod($chroot_filename, 0600);
 						system($tmp_cmd, $result);
 						echo "\n\nsys 395: $tmp_cmd\n\n";
+						chmod($chroot_stderr, 0600);
+						$tmp_cmd = "cp -f $chroot_stderr";
+						$tmp_cmd .= " ";
+						$tmp_cmd .= $problem_handle['judged_dir'];
+						$tmp_cmd .= $problem_handle['file_name'];
+						$tmp_cmd .= "_$problem_name.stderr";
+						system($tmp_cmd, $result);
+						echo "\n\nsys 395b: $tmp_cmd\n\n";
 						#Perform the diffs
 						$tmp = explode(".", $cur_input);
 						$outfile = $tmp[0] . ".out";
