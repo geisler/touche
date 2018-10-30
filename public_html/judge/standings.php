@@ -105,8 +105,10 @@ for($i=0; $i < count($standings); $i++) {
 	    if(!isset($standings[$i]['problems'])){
 		$standings[$i]['problems'] = 0;
 	    }
-	    $standings[$i]['penalty'] 
-		+= $standings[$i]['problems'][$problem['id']]['penalty'];
+	    if (isSet($standings[$i]['problems'][$problem['id']]['penalty'])) {
+	        $standings[$i]['penalty'] 
+		    += $standings[$i]['problems'][$problem['id']]['penalty'];
+	    }
 	}
     }
 }
