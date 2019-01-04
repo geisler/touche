@@ -48,7 +48,7 @@
 	echo "			<select name=problem_id>\n";
 	echo "				<option value=\"-1\">General</option>\n";
 	foreach ($problems as $problem) {
-		echo "				<option value=\"$problem[id]]\">$problem[name]</option>\n";
+		echo "				<option value=\"$problem[id]\">$problem[name]</option>\n";
 	}
 	echo "			</select>\n";
 	echo "			</font>\n";
